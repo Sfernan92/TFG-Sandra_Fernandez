@@ -1,4 +1,4 @@
-# 💰 "Dontacaño.com" - tu Comparador de Precios
+# 💰 "Dontacaño.com" - Tu Comparador de Precios.
 
 ## 🧠 Idea Principal.
 
