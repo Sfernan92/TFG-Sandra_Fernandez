@@ -1,1 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DonTacaño.com</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-[#EDF6F9] shadow sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 py-6 flex justify-between items-center">
+      <h1 class="text-4xl font-bold text-[#006D77]">DonTacaño.com</h1>
+      <input type="text" placeholder="Buscar productos..."
+             class="w-full max-w-md p-3 rounded-full border-2 border-[#006D77] focus:outline-none focus:ring-2 focus:ring-[#006D77] transition-all duration-300" />
+    </div>
+  </header>
+
+  <!-- Título Principal -->
+  <section class="text-center py-12 bg-[#006D77] text-white">
+    <h2 class="text-5xl font-extrabold tracking-wide">
+      COMPARADOR DE PRECIOS
+    </h2>
+    <p class="text-xl mt-3">¡Ahorra comparando precios de tus productos favoritos!</p>
+  </section>
+
+  <!-- Comparador por productos -->
+  <section class="py-12">
+    <div class="max-w-6xl mx-auto text-center">
+      <h3 class="text-3xl font-bold text-[#006D77]">Comparador por Productos</h3>
+      <p class="text-[#83C5BE] mt-2 text-lg">Consulta precios de productos en diferentes supermercados</p>
+    </div>
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 mt-8 px-4">
+      <!-- Producto -->
+      <div class="bg-white rounded-xl shadow-lg p-6 hover-shadow hover-zoom transition-all">
+        <h4 class="text-2xl font-bold text-[#006D77] mb-4 text-center">Producto</h4>
+        <ul class="space-y-3 text-lg text-center">
+          <li>🥄 Arroz</li>
+          <li>🍞 Pan</li>
+          <li>🥛 Leche</li>
+        </ul>
+      </div>
+      <!-- Supermercado 1 -->
+      <div class="bg-[#FFDDD2] rounded-xl shadow-lg p-6 hover-shadow hover-zoom transition-all">
+        <h4 class="text-2xl font-bold text-[#E29578] mb-4 text-center">Supermercado 1</h4>
+        <ul class="space-y-3 text-lg text-center">
+          <li>1.20</li>
+          <li>0.90</li>
+          <li>1.50</li>
+        </ul>
+      </div>
+      <!-- Supermercado 2 -->
+      <div class="bg-[#FFDDD2] rounded-xl shadow-lg p-6 hover-shadow hover-zoom transition-all">
+        <h4 class="text-2xl font-bold text-[#E29578] mb-4 text-center">Supermercado 2</h4>
+        <ul class="space-y-3 text-lg text-center">
+          <li>1.10</li>
+          <li>0.95</li>
+          <li>1.45</li>
+        </ul>
+      </div>
+      <!-- Supermercado 3 -->
+      <div class="bg-[#FFDDD2] rounded-xl shadow-lg p-6 hover-shadow hover-zoom transition-all">
+        <h4 class="text-2xl font-bold text-[#E29578] mb-4 text-center">Supermercado 3</h4>
+        <ul class="space-y-3 text-lg text-center">
+          <li>1.30</li>
+          <li>1.00</li>
+          <li>1.55</li>
+        </ul>
+      </div>
+    </div>
+  </section> 
+
+  <!-- Comparación por Categoría -->
+  <section class="bg-[#EDF6F9] py-12">
+    <div class="max-w-6xl mx-auto text-center">
+      <h3 class="text-3xl font-bold text-[#006D77] mb-6">Comparación por Categoría</h3>
+      <p class="text-[#83C5BE] text-lg mb-10">Consulta precios de productos por categorías</p>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <!-- Categorías -->
+        <div class="bg-white rounded-xl shadow-lg p-6 hover-shadow hover-zoom transition-all">
+          <h4 class="text-xl font-bold text-[#006D77] mb-3 text-center">Categorías</h4>
+          <ul class="space-y-2 text-lg text-gray-700 text-center">
+            <li>🥛 Lácteos</li>
+            <li>🥐 Panadería</li>
+            <li>🍚 Arroz y cereales</li>
+          </ul>
+        </div>
+
+        <!-- Precio 1 -->
+        <div class="bg-[#83C5BE] rounded-xl shadow-lg p-6 hover-shadow hover-zoom transition-all">
+          <h4 class="text-xl font-bold text-white mb-3 text-center">Precio 1</h4>
+          <ul class="space-y-2 text-lg text-white text-center">
+            <li>4.50</li>
+            <li>2.00</li>
+            <li>3.30</li>
+          </ul>
+        </div>
+
+        <!-- Precio 2 -->
+        <div class="bg-[#83C5BE] rounded-xl shadow-lg p-6 hover-shadow hover-zoom transition-all">
+          <h4 class="text-xl font-bold text-white mb-3 text-center">Precio 2</h4>
+          <ul class="space-y-2 text-lg text-white text-center">
+            <li>4.30</li>
+            <li>2.10</li>
+            <li>3.20</li>
+          </ul>
+        </div>
+
+        <!-- Precio 3 -->
+        <div class="bg-[#83C5BE] rounded-xl shadow-lg p-6 hover-shadow hover-zoom transition-all">
+          <h4 class="text-xl font-bold text-white mb-3 text-center">Precio 3</h4>
+          <ul class="space-y-2 text-lg text-white text-center">
+            <li>4.60</li>
+            <li>1.90</li>
+            <li>3.40</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
+
+
 <router-outlet />
