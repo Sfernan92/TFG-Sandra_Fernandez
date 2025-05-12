@@ -12,7 +12,7 @@ Los datos de las tiendas se insertaran en nuestra base de datos mediante un fron
 
 El objetivo principal del proyecto es realizar una página web de comparación de precios de los distintos productos que nos ofrecen los supermercados hoy en día. De esta forma ayudaremos a los consumidores a ahorrar en cada una de sus compras en el día a día, así como poder decidir en qué lugar o supermercado realizar la compra para que dicha compra le salga lo más económicamente posible. Además estaremos ayudando a los usuarios no solo a ahorrar económicamente sino a ahorrar en tiempo, es decir, aprovecharan más su tiempo al saber a qué tienda poder acudir sin necesidad de tener que estar buscando o comparando precios u ofertas de diferentes supermercados. Por lo que podríamos decir que como objetivo general es desarrollar una plataforma digital o web donde ayude a los usuarios a comparar precios de productos en distintos supermercados, ayudándoles en la toma de decisiones, la cual está basada en criterios de stock, coste y calidad.
 
-### Objetivos Específicos.
+## 📍 Objetivos Específicos.
 
 1. Diseñar una interfaz que sea fácil e intuitiva de forma que los usuarios puedan comparar y buscar los precios de los productos de forma sencilla.
 2. Actualizar datos y recabar precios de los distintos productos en los distintos supermercados.
