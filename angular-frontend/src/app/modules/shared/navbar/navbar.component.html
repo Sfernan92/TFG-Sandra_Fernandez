@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DonTacaño.com</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-[#EDF6F9] shadow sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 py-6 flex flex-wrap justify-between items-center gap-4">
+      <!-- Logo -->
+      <div class="flex items-center gap-4">
+        <img src="misseurosinfondo.png" alt="Logotipo DonTacaño" class="w-12 h-12 scale-150 object-contain" />
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#006D77]">DonTacaño.com</h1>
+      </div>
+
+      <!-- Área derecha: Botón y búsqueda -->
+    <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+      <!-- Botón Iniciar sesión -->
+      <a href="/public/misseurosinfondo" class="flex items-center gap-2 px-4 py-2 border rounded-xl border-[#006D77] text-[#006D77] hover:bg-[#006D77] hover:text-white transition-colors duration-200">
+        <span class="text-sm">➔</span> <!-- Ícono -->
+        <span class="text-sm font-medium">Iniciar sesión</span> 
+      </a>
+      <!-- Barra de búsqueda -->
+      <input type="text" placeholder="Buscar productos..."
+             class="w-full sm:w-64 md:w-80 lg:w-96 p-3 rounded-full border-2 border-[#006D77] focus:outline-none focus:ring-2 focus:ring-[#006D77] transition-all duration-300" />
+    </div>
+  
+
