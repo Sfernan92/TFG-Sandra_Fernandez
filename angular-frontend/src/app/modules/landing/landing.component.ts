@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { FooterComponent } from '../shared/footer/footer.component';
+import { ToastComponent } from '../toast/toast.component'; // Importar el componente de toast
 
 @Component({
   selector: 'app-landing',
-  imports: [ CommonModule, NavbarComponent, FooterComponent ],
+  imports: [ CommonModule, NavbarComponent, FooterComponent, ToastComponent ],
   templateUrl: './landing.component.html',
   //styleUrl: './landing.component.css'
 })

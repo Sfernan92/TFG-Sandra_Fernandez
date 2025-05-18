@@ -1,1 +1,9 @@
 <router-outlet />
+
+<app-toast
+*ngIf="showToast"
+  [message]="'¡Bienvenido!'"
+  [subMessage]="'Nos alegra tenerte con nosotros.'"
+  [delay]="2000"
+  [duration]="5000">
+</app-toast>
