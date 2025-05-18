@@ -1,0 +1,24 @@
+<section class="min-h-screen flex items-center justify-center bg-[#EDF6F9] px-4">
+  <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+    <h2 class="text-3xl font-bold text-[#006D77] text-center mb-6">Iniciar Sesión</h2>
+    <form (ngSubmit)="login()" class="space-y-4">
+      <div>
+        <label class="block text-[#006D77] font-medium mb-1">Correo electrónico</label>
+        <input [(ngModel)]="email" name="email" type="email" required
+               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#83C5BE]">
+      </div>
+      <div>
+        <label class="block text-[#006D77] font-medium mb-1">Contraseña</label>
+        <input [(ngModel)]="password" name="password" type="password" required
+               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#83C5BE]">
+      </div>
+      <div *ngIf="errorMessage" class="text-red-500 text-sm">
+        {{ errorMessage }}
+      </div>
+      <button type="submit"
+              class="w-full bg-[#006D77] hover:bg-[#005A64] text-white py-2 rounded-lg transition duration-200 font-semibold">
+        Iniciar Sesión
+      </button>
+    </form>
+  </div>
+</section>
