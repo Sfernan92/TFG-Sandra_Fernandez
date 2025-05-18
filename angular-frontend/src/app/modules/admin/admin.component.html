@@ -1,0 +1,69 @@
+<a
+  routerLink="/"
+  class="fixed top-4 left-4 bg-[#E29578] text-white py-2 px-4 rounded-lg hover:bg-[#D17A61] transition z-50">
+  Volver a inicio
+</a>
+
+<a
+  routerLink="/"
+  class="fixed top-16 left-4 bg-[#E29578] text-white py-2 px-4 rounded-lg hover:bg-[#D17A61] transition z-50">
+  Cerrar Sesión
+</a>
+
+
+<div class="min-h-screen bg-[#EDF6F9] p-8">
+  <h1 class="text-3xl font-bold text-center text-[#006D77] mb-8">Panel de Administración</h1>
+  <!-- Productos -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-center text-[#E29578] mb-4">Productos</h2>
+    <table class="bg-white w-full overflow-hidden text-left rounded-lg shadow-lg mb-4">
+      <thead class="bg-[#83C5BE] text-white">
+        <tr>
+          <th class="p-2">Nombre</th>
+          <th class="p-2">Precio</th>
+          <th class="p-2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of products">
+          <td class="p-2">{{ producto.nombre }}</td>
+          <td class="p-2">{{ producto.precio | currency:'EUR' }}</td>
+          <td class="p-2">
+            <button (click)="eliminarProducto(producto.id)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="flex gap-4 mb-2">
+      <input [(ngModel)]="nuevoProducto.nombre" placeholder="Nombre" class="border p-2 rounded w-full" />
+      <input [(ngModel)]="nuevoProducto.precio" type="number" placeholder="Precio" class="border p-2 rounded w-full" />
+      <button (click)="agregarProducto()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">Añadir</button>
+    </div>
+    <div *ngIf="errorProducto" class="text-red-600 text-sm mb-4">Rellene todos los campos del producto</div>
+  </div>
+  <!-- Supermercados -->
+  <div>
+    <h2 class="text-2xl font-semibold text-center text-[#E29578] mb-4">Supermercados</h2>
+    <table class=" bg-white w-full overflow-hidden text-left rounded-lg shadow-lg mb-4">
+      <thead class="bg-[#83C5BE] text-white">
+        <tr>
+          <th class="p-2">Nombre</th>
+          <th class="p-2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let supermercado of supermercados">
+          <td class="p-2">{{ supermercado.nombre }}</td>
+          <td class="p-2">
+            <button (click)="eliminarSupermercado(supermercado.id)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="flex gap-4 mb-2">
+      <input [(ngModel)]="nuevoSupermercado.nombre" placeholder="Nombre del supermercado" class="border p-2 rounded w-full" />
+      <button (click)="agregarSupermercado()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">Añadir</button>
+    </div>
+    <div *ngIf="errorSupermercado" class="text-red-600 text-sm mb-4">Rellene el campo del supermercado</div>
+  </div>
+</div>
