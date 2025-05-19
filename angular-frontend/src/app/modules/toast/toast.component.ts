@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
   //styleUrl: './toast.component.css'
 })
 export class ToastComponent implements OnInit {
-  @Input() message = '¡Bienvenido!';
-  @Input() subMessage = 'Nos alegra tenerte con nosotros.';
+  @Input() message = '¡Hola, Soy Miss Euro!';
+  @Input() subMessage = 'Estoy aqui para ayudarte a ahorrar.';
   @Input() delay = 2000; // ms hasta mostrar
   @Input() duration = 5000; // ms visible
   
