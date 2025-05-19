@@ -7,3 +7,5 @@ En este proyecto vamos a realizar una página web que compare los precios de pro
 Con todo ello intentaremos ayudar a los usuarios que vayan a realizar sus compras diarias para saber en qué supermercados se encuentran sus productos a mejor precio, promoviendo así un ahorro en sus compras. 
 
 Los datos de las tiendas se insertaran en nuestra base de datos mediante un frontal el cual interactuará con un backend que realizaremos en java mediante Springboot. 
+
+> ⚠⚠ IMPORTANTE: Para Visualizar el proyecto, ir a la **rama DEV**, ya que la rama main, esta limpia. ⚠⚠
