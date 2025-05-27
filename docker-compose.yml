@@ -4,7 +4,7 @@ services:
       context: ./symfony-backend
       dockerfile: ./docker/php/Dockerfile
     container_name: stronova_backend
-    restart: unless-stopped
+    restart: no
     working_dir: /var/www/app
     volumes:
       - ./symfony-backend/app:/var/www/app
@@ -56,7 +56,7 @@ services:
       context: ./angular-frontend
       dockerfile: Dockerfile
     container_name: stronova_frontend
-    restart: always
+    restart: no
     working_dir: /app
     volumes:
       - ./angular-frontend:/app
