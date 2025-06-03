@@ -3,77 +3,91 @@
 namespace App\Controller;
 
 use App\Entity\Precios;
-use App\Form\PreciosType;
 use App\Repository\PreciosRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/precios')]
 class PreciosController extends AbstractController
 {
     #[Route('/', name: 'precios_index', methods: ['GET'])]
-    public function index(PreciosRepository $preciosRepository): Response
+    public function index(PreciosRepository $preciosRepository): JsonResponse
     {
-        return $this->render('precios/index.html.twig', [
-            'precios' => $preciosRepository->findAll(),
-        ]);
-    }
+        $precios = $preciosRepository->findAll();
 
-    #[Route('/new', name: 'precios_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em): Response
-    {
-        $precio = new Precios();
-        $form = $this->createForm(PreciosType::class, $precio);
-        $form->handleRequest($request);
+        $data = array_map(function (Precios $precio) {
+            $producto = $precio->getProducto();
+            $supermercado = $precio->getSupermercado();
+            $categoria = $producto && $producto->getCategoria() ? $producto->getCategoria()->getNombre() : null;
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($precio);
-            $em->flush();
+            return [
+                'id' => $precio->getId(),
+                'precio' => $precio->getPrecio(),
+                'producto_nombre' => $producto ? $producto->getNombre() : null,
+                'supermercado_nombre' => $supermercado ? $supermercado->getNombre() : null,
+                'categoria' => $categoria,
+            ];
+        }, $precios);
 
-            return $this->redirectToRoute('precios_index');
-        }
-
-        return $this->render('precios/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return new JsonResponse($data);
     }
 
     #[Route('/{id}', name: 'precios_show', methods: ['GET'])]
-    public function show(Precios $precio): Response
+    public function show(Precios $precio): JsonResponse
     {
-        return $this->render('precios/show.html.twig', [
-            'precio' => $precio,
+        $data = [
+            'id' => $precio->getId(),
+            // etc...
+        ];
+
+        return new JsonResponse($data);
+    }
+
+    #[Route('/new', name: 'precios_new', methods: ['POST'])]
+    public function new(Request $request, EntityManagerInterface $em): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $precio = new Precios();
+
+        // Valida manualmente si quieres o usa validación aparte
+
+        $em->persist($precio);
+        $em->flush();
+
+        return new JsonResponse([
+            'message' => 'Precio creado',
+            'id' => $precio->getId(),
+        ], 201);
+    }
+
+    #[Route('/{id}/edit', name: 'precios_edit', methods: ['PUT', 'PATCH'])]
+    public function edit(Request $request, Precios $precio, EntityManagerInterface $em): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        if (isset($data['nombre'])) {
+            $precio->setNombre($data['nombre']);
+        }
+
+        $em->flush();
+
+        return new JsonResponse([
+            'message' => 'Precio actualizado',
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'precios_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Precios $precio, EntityManagerInterface $em): Response
+    #[Route('/{id}', name: 'precios_delete', methods: ['DELETE'])]
+    public function delete(Request $request, Precios $precio, EntityManagerInterface $em): JsonResponse
     {
-        $form = $this->createForm(PreciosType::class, $precio);
-        $form->handleRequest($request);
+        $em->remove($precio);
+        $em->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            return $this->redirectToRoute('precios_index');
-        }
-
-        return $this->render('precios/edit.html.twig', [
-            'form' => $form->createView(),
-            'precio' => $precio,
+        return new JsonResponse([
+            'message' => 'Precio eliminado',
         ]);
-    }
-
-    #[Route('/{id}', name: 'precios_delete', methods: ['POST'])]
-    public function delete(Request $request, Precios $precio, EntityManagerInterface $em): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $precio->getId(), $request->request->get('_token'))) {
-            $em->remove($precio);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('precios_index');
     }
 }

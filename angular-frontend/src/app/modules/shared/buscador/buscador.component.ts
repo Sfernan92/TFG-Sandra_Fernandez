@@ -12,6 +12,7 @@ export class BuscadorComponent {
   terminoBusqueda: string = '';
 
   alimentos = [
+
     { nombre: 'Manzana', emoji: '🍎' },
     { nombre: 'Banana', emoji: '🍌' },
     { nombre: 'Pizza', emoji: '🍕' },
@@ -38,7 +39,7 @@ export class BuscadorComponent {
     { nombre: 'Sal', emoji: '🧂' },
     { nombre: 'Pasta', emoji: '🍝' },
     { nombre: 'Arroz', emoji: '🍚' },
-    { nombre: 'Frijoles', emoji: '🫘' },
+    { nombre: 'Pizza', emoji: '🍕' },
     { nombre: 'Maíz', emoji: '🌽' },
     { nombre: 'Patata', emoji: '🥔' },
     { nombre: 'Zanahoria', emoji: '🥕' },
@@ -48,6 +49,8 @@ export class BuscadorComponent {
     { nombre: 'Cebolla', emoji: '🧅' },
     { nombre: 'Ajo', emoji: '🧄' },
     { nombre: 'Pimiento', emoji: '🌶️' },
+    { nombre: 'Pistachos', emoji: '🥜' },
+    { nombre: 'Chocolate', emoji: '🍫' },
   ];
 
   obtenerAlimentosFiltrados() {

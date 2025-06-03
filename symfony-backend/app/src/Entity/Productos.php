@@ -3,9 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductosRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Categorias;
 
 #[ORM\Entity(repositoryClass: ProductosRepository::class)]
 class Productos
@@ -21,17 +20,10 @@ class Productos
     #[ORM\Column(length: 100)]
     private ?string $marca = null;
 
-    #[ORM\ManyToOne(targetEntity: Categorias::class, inversedBy: 'productos')]
-    #[ORM\JoinColumn(nullable: false)]
-    private Categorias $categoria;
 
-    #[ORM\OneToMany(mappedBy: 'productos', targetEntity: Precios::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
-    private Collection $precios;
-
-    public function __construct()
-    {
-        $this->precios = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(targetEntity: Categorias::class)]
+    #[ORM\JoinColumn(name: "categoria_id", referencedColumnName: "id", nullable: false)]
+    private ?Categorias $categoria = null;
 
     public function getId(): ?int
     {
@@ -68,36 +60,6 @@ class Productos
     public function setCategoria(Categorias $categoria): static
     {
         $this->categoria = $categoria;
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Precios>
-     */
-    public function getPrecios(): Collection
-    {
-        return $this->precios;
-    }
-
-    public function addPrecio(Precios $precio): static
-    {
-        if (!$this->precios->contains($precio)) {
-            $this->precios[] = $precio;
-            $precio->setProducto($this);
-        }
-
-        return $this;
-    }
-
-    public function removePrecio(Precios $precio): static
-    {
-        if ($this->precios->removeElement($precio)) {
-            // set the owning side to null (unless already changed)
-            if ($precio->getProducto() === $this) {
-                $precio->setProducto(null);
-            }
-        }
-
         return $this;
     }
 }

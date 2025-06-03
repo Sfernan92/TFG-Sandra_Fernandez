@@ -3,77 +3,92 @@
 namespace App\Controller;
 
 use App\Entity\Productos;
-use App\Form\ProductosType;
 use App\Repository\ProductosRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/productos')]
 class ProductosController extends AbstractController
 {
     #[Route('/', name: 'productos_index', methods: ['GET'])]
-    public function index(ProductosRepository $productosRepository): Response
+    public function index(ProductosRepository $productosRepository): JsonResponse
     {
-        return $this->render('productos/index.html.twig', [
-            'productos' => $productosRepository->findAll(),
-        ]);
+        $productos = $productosRepository->findAll();
+
+        $data = array_map(function (Productos $producto) {
+            return [
+                'id' => $producto->getId(),
+                'nombre' => $producto->getNombre(),
+                'marca' => $producto->getMarca(),
+                'categoria_id' => $producto->getCategoria() ? $producto->getCategoria()->getId() : null,
+            ];
+        }, $productos);
+
+        return new JsonResponse($data);
     }
 
-    #[Route('/new', name: 'productos_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em): Response
-    {
-        $producto = new Productos();
-        $form = $this->createForm(ProductosType::class, $producto);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($producto);
-            $em->flush();
-
-            return $this->redirectToRoute('productos_index');
-        }
-
-        return $this->render('productos/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
 
     #[Route('/{id}', name: 'productos_show', methods: ['GET'])]
-    public function show(Productos $producto): Response
+    public function show(Productos $producto): JsonResponse
     {
-        return $this->render('productos/show.html.twig', [
-            'producto' => $producto,
+        $data = [
+            'id' => $producto->getId(),
+            'nombre' => $producto->getNombre(),
+            'marca' => $producto->getMarca(),
+            // etc...
+        ];
+
+        return new JsonResponse($data);
+    }
+
+    #[Route('/new', name: 'productos_new', methods: ['POST'])]
+    public function new(Request $request, EntityManagerInterface $em): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $producto = new Productos();
+        $producto->setNombre($data['nombre'] ?? null);
+        $producto->setMarca($data['marca'] ?? null);
+
+        $em->persist($producto);
+        $em->flush();
+
+        return new JsonResponse([
+            'message' => 'Producto creado',
+            'id' => $producto->getId(),
+        ], 201);
+    }
+
+    #[Route('/{id}/edit', name: 'productos_edit', methods: ['PUT', 'PATCH'])]
+    public function edit(Request $request, Productos $producto, EntityManagerInterface $em): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        if (isset($data['nombre'])) {
+            $producto->setNombre($data['nombre']);
+        }
+        if (isset($data['marca'])) {
+            $producto->setMarca($data['marca']);
+        }
+
+        $em->flush();
+
+        return new JsonResponse([
+            'message' => 'Producto actualizado',
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'productos_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Productos $producto, EntityManagerInterface $em): Response
+    #[Route('/{id}', name: 'productos_delete', methods: ['DELETE'])]
+    public function delete(Productos $producto, EntityManagerInterface $em): JsonResponse
     {
-        $form = $this->createForm(ProductosType::class, $producto);
-        $form->handleRequest($request);
+        $em->remove($producto);
+        $em->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            return $this->redirectToRoute('productos_index');
-        }
-
-        return $this->render('productos/edit.html.twig', [
-            'form' => $form->createView(),
-            'producto' => $producto,
+        return new JsonResponse([
+            'message' => 'Producto eliminado',
         ]);
-    }
-
-    #[Route('/{id}', name: 'productos_delete', methods: ['POST'])]
-    public function delete(Request $request, Productos $producto, EntityManagerInterface $em): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $producto->getId(), $request->request->get('_token'))) {
-            $em->remove($producto);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('productos_index');
     }
 }

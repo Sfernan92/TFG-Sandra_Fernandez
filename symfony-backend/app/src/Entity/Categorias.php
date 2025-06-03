@@ -5,10 +5,10 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\CategoriaRepository;
+use App\Repository\CategoriasRepository;
 use App\Entity\Producto;
 
-#[ORM\Entity(repositoryClass: CategoriaRepository::class)]
+#[ORM\Entity(repositoryClass: CategoriasRepository::class)]
 class Categorias
 {
     #[ORM\Id]

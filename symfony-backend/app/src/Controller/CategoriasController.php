@@ -7,6 +7,7 @@ use App\Form\CategoriasType;
 use App\Repository\CategoriasRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,65 +16,66 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoriasController extends AbstractController
 {
     #[Route('/', name: 'categorias_index', methods: ['GET'])]
-    public function index(CategoriasRepository $categoriasRepository): Response
+    public function index(CategoriasRepository $categoriasRepository): JsonResponse
     {
-        return $this->render('categorias/index.html.twig', [
-            'categorias' => $categoriasRepository->findAll(),
-        ]);
+        $categorias = $categoriasRepository->findAll();
+
+        $data = array_map(function (Categorias $categoria) {
+            return [
+                'id' => $categoria->getId(),
+                'nombre' => $categoria->getNombre(),
+                // Agrega otros campos necesarios aquí
+            ];
+        }, $categorias);
+
+        return new JsonResponse($data);
     }
 
-    #[Route('/new', name: 'categorias_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em): Response
-    {
-        $categoria = new Categorias();
-        $form = $this->createForm(CategoriasType::class, $categoria);
-        $form->handleRequest($request);
+#[Route('/new', name: 'categorias_new', methods: ['POST'])]
+public function new(Request $request, EntityManagerInterface $em): JsonResponse
+{
+    $data = json_decode($request->getContent(), true);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($categoria);
-            $em->flush();
+    $categoria = new Categorias();
+    $categoria->setNombre($data['nombre'] ?? '');
 
-            return $this->redirectToRoute('categorias_index');
-        }
+    $em->persist($categoria);
+    $em->flush();
 
-        return $this->render('categorias/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
+    return new JsonResponse([
+        'message' => 'Categoría creada',
+        'id' => $categoria->getId(),
+    ], Response::HTTP_CREATED);
+}
 
     #[Route('/{id}', name: 'categorias_show', methods: ['GET'])]
-    public function show(Categorias $categoria): Response
+    public function show(Categorias $categoria): JsonResponse
     {
-        return $this->render('categorias/show.html.twig', [
-            'categoria' => $categoria,
+        return new JsonResponse([
+            'id' => $categoria->getId(),
+            'nombre' => $categoria->getNombre(),
+            // Agrega otros campos aquí
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'categorias_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Categorias $categoria, EntityManagerInterface $em): Response
+    #[Route('/{id}/edit', name: 'categorias_edit', methods: ['PUT'])]
+    public function edit(Request $request, Categorias $categoria, EntityManagerInterface $em): JsonResponse
     {
-        $form = $this->createForm(CategoriasType::class, $categoria);
-        $form->handleRequest($request);
+        $data = json_decode($request->getContent(), true);
+        $categoria->setNombre($data['nombre'] ?? $categoria->getNombre());
+        // Actualiza más campos si es necesario
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            return $this->redirectToRoute('categorias_index');
-        }
+        $em->flush();
 
-        return $this->render('categorias/edit.html.twig', [
-            'form' => $form->createView(),
-            'categoria' => $categoria,
-        ]);
+        return new JsonResponse(['message' => 'Categoría actualizada']);
     }
 
-    #[Route('/{id}', name: 'categorias_delete', methods: ['POST'])]
-    public function delete(Request $request, Categorias $categoria, EntityManagerInterface $em): Response
+    #[Route('/{id}', name: 'categorias_delete', methods: ['DELETE'])]
+    public function delete(Categorias $categoria, EntityManagerInterface $em): JsonResponse
     {
-        if ($this->isCsrfTokenValid('delete' . $categoria->getId(), $request->request->get('_token'))) {
-            $em->remove($categoria);
-            $em->flush();
-        }
+        $em->remove($categoria);
+        $em->flush();
 
-        return $this->redirectToRoute('categorias_index');
+        return new JsonResponse(['message' => 'Categoría eliminada']);
     }
 }

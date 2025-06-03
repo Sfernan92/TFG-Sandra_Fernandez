@@ -3,77 +3,85 @@
 namespace App\Controller;
 
 use App\Entity\Supermercados;
-use App\Form\SupermercadosType;
 use App\Repository\SupermercadosRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/supermercados')]
 class SupermercadosController extends AbstractController
 {
     #[Route('/', name: 'supermercados_index', methods: ['GET'])]
-    public function index(SupermercadosRepository $supermercadosRepository): Response
+    public function index(SupermercadosRepository $supermercadosRepository): JsonResponse
     {
-        return $this->render('supermercados/index.html.twig', [
-            'supermercados' => $supermercadosRepository->findAll(),
-        ]);
-    }
+        $supermercados = $supermercadosRepository->findAll();
 
-    #[Route('/new', name: 'supermercados_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $em): Response
-    {
-        $supermercado = new Supermercados();
-        $form = $this->createForm(SupermercadosType::class, $supermercado);
-        $form->handleRequest($request);
+        $data = array_map(function (Supermercados $supermercado) {
+            return [
+                'id' => $supermercado->getId(),
+                // Cambia estos campos según tu entidad
+                'nombre' => $supermercado->getNombre()
+                // etc...
+            ];
+        }, $supermercados);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($supermercado);
-            $em->flush();
-
-            return $this->redirectToRoute('supermercados_index');
-        }
-
-        return $this->render('supermercados/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return new JsonResponse($data);
     }
 
     #[Route('/{id}', name: 'supermercados_show', methods: ['GET'])]
-    public function show(Supermercados $supermercado): Response
+    public function show(Supermercados $supermercado): JsonResponse
     {
-        return $this->render('supermercados/show.html.twig', [
-            'supermercado' => $supermercado,
-        ]);
+        $data = [
+            'id' => $supermercado->getId(),
+            'nombre' => $supermercado->getNombre(),
+            // etc...
+        ];
+
+        return new JsonResponse($data);
     }
 
-    #[Route('/{id}/edit', name: 'supermercados_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Supermercados $supermercado, EntityManagerInterface $em): Response
+    #[Route('/new', name: 'supermercados_new', methods: ['POST'])]
+    public function new(Request $request, EntityManagerInterface $em): JsonResponse
     {
-        $form = $this->createForm(SupermercadosType::class, $supermercado);
-        $form->handleRequest($request);
+        $data = json_decode($request->getContent(), true);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            return $this->redirectToRoute('supermercados_index');
-        }
+        $supermercado = new Supermercados();
+        $supermercado->setNombre($data['nombre'] ?? null);
+        // setea aquí los demás campos que tengas
 
-        return $this->render('supermercados/edit.html.twig', [
-            'form' => $form->createView(),
-            'supermercado' => $supermercado,
-        ]);
+        $em->persist($supermercado);
+        $em->flush();
+
+        return new JsonResponse([
+            'message' => 'Supermercado creado',
+            'id' => $supermercado->getId(),
+        ], 201);
     }
 
-    #[Route('/{id}', name: 'supermercados_delete', methods: ['POST'])]
-    public function delete(Request $request, Supermercados $supermercado, EntityManagerInterface $em): Response
+    #[Route('/{id}/edit', name: 'supermercados_edit', methods: ['PUT', 'PATCH'])]
+    public function edit(Request $request, Supermercados $supermercado, EntityManagerInterface $em): JsonResponse
     {
-        if ($this->isCsrfTokenValid('delete' . $supermercado->getId(), $request->request->get('_token'))) {
-            $em->remove($supermercado);
-            $em->flush();
+        $data = json_decode($request->getContent(), true);
+
+        if (isset($data['nombre'])) {
+            $supermercado->setNombre($data['nombre']);
         }
 
-        return $this->redirectToRoute('supermercados_index');
+        // actualiza otros campos si hay
+
+        $em->flush();
+
+        return new JsonResponse(['message' => 'Supermercado actualizado']);
+    }
+
+    #[Route('/{id}', name: 'supermercados_delete', methods: ['DELETE'])]
+    public function delete(Supermercados $supermercado, EntityManagerInterface $em): JsonResponse
+    {
+        $em->remove($supermercado);
+        $em->flush();
+
+        return new JsonResponse(['message' => 'Supermercado eliminado']);
     }
 }
