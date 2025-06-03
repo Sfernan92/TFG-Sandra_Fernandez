@@ -15,8 +15,13 @@ export class LoginComponent {
   email = '';
   password = '';
   errorMessage = '';
+  showPassword = false;
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
   login() {
   if (!this.email.trim() || !this.password.trim()) {
