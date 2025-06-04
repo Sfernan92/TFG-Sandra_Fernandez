@@ -51,6 +51,7 @@ export class BuscadorComponent {
     { nombre: 'Pimiento', emoji: '🌶️' },
     { nombre: 'Pistachos', emoji: '🥜' },
     { nombre: 'Chocolate', emoji: '🍫' },
+    { nombre: 'Leche', emoji: '🥛' },
   ];
 
   obtenerAlimentosFiltrados() {

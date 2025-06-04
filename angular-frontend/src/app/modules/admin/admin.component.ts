@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './admin.component.html',
 })
+
 export class AdminComponent implements OnInit {
   categorias: any[] = []; // categorías aquí
   nuevoProducto = { nombre: '', marca: '' , categoria_id: null};
@@ -17,12 +19,14 @@ export class AdminComponent implements OnInit {
   nuevoSupermercado = { nombre: '' };
   errorSupermercado = false;
   supermercadoEditando: any = null;
+  
   private supermercadoApiUrl = 'http://localhost:8000/supermercados';
   // NUEVO: para edición
   categoriaEditando: any = null;
-productos: any[] = [];
-productoEditando: any = null;
-private productosApiUrl = 'http://localhost:8000/productos';
+  productos: any[] = [];
+  productoEditando: any = null;
+
+  private productosApiUrl = 'http://localhost:8000/productos';
   // URL base de la API Symfony
   private apiUrl = 'http://localhost:8000/categorias';
 
@@ -57,7 +61,7 @@ private productosApiUrl = 'http://localhost:8000/productos';
     });
   }
 
-  // --- NUEVOS MÉTODOS PARA EDITAR ---
+  // --- MÉTODOS PARA EDITAR ---
 
   abrirPopupEditar(categoria: any) {
     // Clonar el objeto para no mutar la lista directamente
