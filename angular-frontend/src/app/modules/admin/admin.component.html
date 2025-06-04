@@ -13,10 +13,10 @@
 
 <div class="min-h-screen bg-[#EDF6F9] p-8 lg:px-70">
   <div class="max-w-6x1 mx-auto">
-  <h1 class="text-3xl font-bold text-center text-[#006D77] mb-8">Panel de Administración</h1>
+  <h1 class="text-4xl font-bold text-center text-[#006D77] mb-8">Panel de Administración</h1>
   <!-- Categorias -->
   <div class="mb-12">
-  <h2 class="text-2xl font-semibold text-center text-[#E29578] mb-4">Categorías</h2>
+  <h2 class="text-3xl font-semibold text-center text-[#E29578] mb-4">Categorías</h2>
   <table class="bg-white w-full overflow-hidden text-left rounded-lg shadow-lg mb-4">
     <thead class="bg-[#83C5BE] text-white">
       <tr>
@@ -26,17 +26,17 @@
     </thead>
     <tbody>
       <tr *ngFor="let categoria of categorias">
-        <td class="p-2">{{ categoria.nombre }}</td>
-        <td class="p-2">
+        <td class="p-2 align-middle min-h-[48px]">{{ categoria.nombre }}</td>
+        <td class="p-2 align-middle min-h-[48px]">
         <button
             (click)="abrirPopupEditar(categoria)"
-            class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+            class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-5"
           >
             Editar
           </button>
           <button
             (click)="eliminarCategoria(categoria.id)"
-            class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+            class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 mr-5"
           >
             Eliminar
           </button>
@@ -93,7 +93,7 @@
 <!-- Supermercados -->
    
   <div class="mb-12">
-  <h2 class="text-2xl font-semibold text-center text-[#E29578] mb-4">Supermercados</h2>
+  <h2 class="text-3xl font-semibold text-center text-[#E29578] mb-4">Supermercados</h2>
   <table class="bg-white w-full overflow-hidden text-left rounded-lg shadow-lg mb-4">
     <thead class="bg-[#83C5BE] text-white">
       <tr>
@@ -103,17 +103,17 @@
     </thead>
     <tbody>
       <tr *ngFor="let supermercado of supermercados">
-        <td class="p-2">{{ supermercado.nombre }}</td>
-        <td class="p-2">
+        <td class="p-4 align-middle min-h-[48px]">{{ supermercado.nombre }}</td>
+        <td class="p-2 align-middle min-h-[48px]">
           <button
             (click)="abrirPopupEditarSupermercado(supermercado)"
-            class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+            class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-5"
           >
             Editar
           </button>
           <button
             (click)="eliminarSupermercado(supermercado.id)"
-            class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+            class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
           >
             Eliminar
           </button>
@@ -172,7 +172,7 @@
 
   <!-- Productos -->
 <div class="mb-12">
-  <h2 class="text-2xl font-semibold text-center text-[#E29578] mb-4">Productos</h2>
+  <h2 class="text-3xl font-semibold text-center text-[#E29578] mb-4">Productos</h2>
   <table class="bg-white w-full overflow-hidden text-left rounded-lg shadow-lg mb-4">
     <thead class="bg-[#83C5BE] text-white">
       <tr>
@@ -184,19 +184,19 @@
     </thead>
     <tbody>
       <tr *ngFor="let producto of productos">
-        <td class="p-2">{{ producto.nombre }}</td>
-        <td class="p-2">{{ producto.marca}}</td>
-        <td class="p-2">{{ getNombreCategoria(producto.categoria_id) }}</td>
-        <td class="p-2">
+        <td class="p-4 align-middle min-h-[48px]">{{ producto.nombre }}</td>
+        <td class="p-2 align-middle min-h-[48px]">{{ producto.marca}}</td>
+        <td class="p-2 align-middle min-h-[48px]">{{ getNombreCategoria(producto.categoria_id) }}</td>
+        <td class="p-2 align-middle min-h-[48px]">
           <button
             (click)="abrirPopupEditarProducto(producto)"
-            class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+            class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-5"
           >
             Editar
           </button>
           <button
             (click)="eliminarProducto(producto.id)"
-            class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+            class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
           >
             Eliminar
           </button>
