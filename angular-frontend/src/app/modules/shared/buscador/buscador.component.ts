@@ -52,6 +52,15 @@ export class BuscadorComponent {
     { nombre: 'Pistachos', emoji: '🥜' },
     { nombre: 'Chocolate', emoji: '🍫' },
     { nombre: 'Leche', emoji: '🥛' },
+    { nombre: 'zumo', emoji: '🧃' },
+    { nombre: 'Batido', emoji: '🥤' },
+    { nombre: 'Café', emoji: '☕' },
+    { nombre: 'Té', emoji: '🍵' },
+    { nombre: 'Agua', emoji: '💧' },
+    { nombre: 'Cerveza', emoji: '🍺' },
+    { nombre: 'Vino', emoji: '🍷' },
+    { nombre: 'Cóctel', emoji: '🍸' },
+    { nombre: 'Batido de frutas', emoji: '🍹' },
   ];
 
   obtenerAlimentosFiltrados() {
