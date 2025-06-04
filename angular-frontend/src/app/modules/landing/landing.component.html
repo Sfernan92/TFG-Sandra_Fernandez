@@ -11,13 +11,13 @@
 <!-- Comparador por productos -->
 <section class="py-12">
   <div class="max-w-6xl mx-auto text-center">
-    <h3 class="text-3xl font-bold text-[#006D77]">Comparador por Productos</h3>
-    <p class="text-[#83C5BE] mt-2 text-lg">Consulta precios de productos en diferentes supermercados</p>
+    <h3 class="text-3xl font-bold text-[#006D77] mb-4">Comparador por Productos</h3>
+    <p class="text-[#83C5BE] mt-2 text-lg mb-10">Consulta precios de productos en diferentes supermercados</p>
   </div>
   <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-{{ supermercados.length + 1 }} gap-6 mt-8 px-4">
     <!-- Columna de productos -->
-    <div class="bg-white rounded-xl shadow-lg p-6">
-      <h4 class="text-2xl font-bold text-[#006D77] mb-4 text-center">Producto</h4>
+    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl hover:scale-105 transition-all duration-300">
+      <h4 class="text-2xl font-bold text-[#006D77] mb-4 text-center">Productos</h4>
       <ul class="space-y-3 text-lg text-center">
         <li *ngFor="let producto of productos">{{ producto }}</li>
       </ul>
@@ -26,7 +26,7 @@
     <!-- Columnas por supermercado -->
     <div
       *ngFor="let supermercado of supermercados"
-      class="bg-[#FFDDD2] rounded-xl shadow-lg p-6"
+      class="bg-[#FFDDD2] rounded-xl shadow-lg p-6 hover:shadow-2xl hover:scale-105 transition-all duration-300"
     >
       <h4 class="text-2xl font-bold text-[#E29578] mb-4 text-center">{{ supermercado | titlecase }}</h4>
       <ul class="space-y-3 text-lg text-center">
@@ -39,22 +39,29 @@
 <!-- Comparación por Categoría -->
 <section class="bg-[#EDF6F9] py-12">
   <div class="max-w-6xl mx-auto text-center">
-    <h3 class="text-3xl font-bold text-[#006D77] mb-6">Comparación por Categoría</h3>
-    <p class="text-[#83C5BE] text-lg mb-10">Consulta precios de productos por categorías</p>
+    <h3 class="text-3xl font-bold text-[#006D77] mb-4">Comparación por Categoría</h3>
+    <p class="text-[#83C5BE] text-lg mt-2 mb-10">Consulta precios de productos por categorías</p>
     
-    <div class="grid grid-cols-1 md:grid-cols-{{ supermercados.length + 1 }} gap-6">
+    <div class="grid grid-cols-1 gap-6"
+     [ngClass]="{
+       'md:grid-cols-2': supermercados.length === 1,
+       'md:grid-cols-3': supermercados.length === 2,
+       'md:grid-cols-4': supermercados.length === 3,
+       'md:grid-cols-5': supermercados.length === 4,
+       'md:grid-cols-6': supermercados.length === 5
+     }">
       <!-- Columna de categorías -->
-      <div class="bg-white rounded-xl shadow-lg p-6">
-        <h4 class="text-xl font-bold text-[#006D77] mb-3 text-center">Categorías</h4>
-        <ul class="space-y-2 text-lg text-gray-700 text-center">
+      <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6 ">
+        <h4 class="text-2xl font-bold text-[#006D77] mb-3 text-center">Categorías</h4>
+        <ul class="space-y-3 text-lg text-gray-700 text-center">
           <li *ngFor="let categoria of categorias">{{ categoria }}</li>
         </ul>
       </div>
 
       <!-- Columnas por supermercado -->
-      <div *ngFor="let supermercado of supermercados" class="bg-[#83C5BE] rounded-xl shadow-lg p-6">
-        <h4 class="text-xl font-bold text-white mb-3 text-center">{{ supermercado }}</h4>
-        <ul class="space-y-2 text-lg text-white text-center">
+      <div *ngFor="let supermercado of supermercados" class="bg-[#83C5BE] rounded-xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 p-6">
+        <h4 class="text-2xl font-bold text-white mb-4 text-center">{{ supermercado }}</h4>
+        <ul class="space-y-3 text-lg text-white text-center">
           <li *ngFor="let categoria of categorias">
             {{ (sumaPorCategoria[categoria]?.[supermercado] || 0) | number:'1.2-2' }}
           </li>

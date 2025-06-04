@@ -93,4 +93,9 @@ export class LandingComponent implements OnInit {
   }
   console.log('Suma por categoria:', this.sumaPorCategoria);
 }
+
+get gridColsClass(): string {
+  return `md:grid-cols-${this.supermercados.length + 1}`;
+  }
+
 }
