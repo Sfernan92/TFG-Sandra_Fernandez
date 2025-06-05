@@ -109,7 +109,7 @@
   </div>
 </div>
 
-  <!-- Productos -->
+<!-- Productos -->
 <div class="mb-12">
   <h2 class="text-3xl font-semibold text-center text-[#E29578] mb-4">Productos</h2>
   <table class="bg-white w-full overflow-hidden text-left rounded-lg shadow-lg mb-4">
@@ -175,32 +175,65 @@
   </div>
 </div>
 
-  <!-- Precios -->
-  <!-- <div class="mb-12">
-    <h2 class="text-2xl font-semibold text-center text-[#E29578] mb-4">Precios</h2>
-    <table class="bg-white w-full overflow-hidden text-left rounded-lg shadow-lg mb-4">
-      <thead class="bg-[#83C5BE] text-white">
-        <tr>
-          <th class="p-2">Nombre</th>
-          <th class="p-2">Precio</th>
-          <th class="p-2">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let producto of products">
-          <td class="p-2">{{ producto.nombre }}</td>
-          <td class="p-2">{{ producto.precio | currency:'EUR' }}</td>
-          <td class="p-2">
-            <button (click)="eliminarProducto(producto.id)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="flex gap-4 mb-2">
-      <input [(ngModel)]="nuevoProducto.nombre" placeholder="Nombre" class="border p-2 rounded w-full" />
-      <input [(ngModel)]="nuevoProducto.precio" type="number" placeholder="Precio" class="border p-2 rounded w-full" />
-      <button (click)="agregarProducto()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">Añadir</button>
+<!-- Precios -->
+<div class="mb-12">
+  <h2 class="text-3xl font-semibold text-center text-[#E29578] mb-4">Precios</h2>
+  <table class="min-w-full border border-gray-300 rounded">
+  <thead class="bg-[#83C5BE] text-white">
+    <tr>
+      <th class="p-2">Producto</th>
+      <th class="p-2">Supermercado</th>
+      <th class="p-2">Categoría</th>
+      <th class="p-2">Precio</th>
+      <th class="p-2">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of productosConPrecio">
+      <td class="p-4">{{ item.producto_nombre }}</td>
+      <td class="p-4">{{ item.supermercado_nombre }}</td>
+      <td class="p-4">{{ item.categoria }}</td>
+      <td class="p-4">{{ item.precio | currency:'EUR' }}</td>
+      <td class="p-2">
+        <button (click)="abrirPopupEditarPrecio(item)" class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-5">
+          Editar
+        </button>
+        <button (click)="eliminarProductoConPrecio(item.id)" class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600">
+          Eliminar
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  <!-- Pop-up edición precio -->
+  <div *ngIf="productoPrecioEditando" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white rounded-lg p-6 w-80 shadow-lg">
+      <h3 class="text-xl font-semibold mb-4 text-[#006D77]">Editar Precio</h3>
+      <input [(ngModel)]="productoPrecioEditando.nombre" type="text" class="border p-2 rounded w-full mb-2" placeholder="Nombre del producto"/>
+      <input [(ngModel)]="productoPrecioEditando.precio" type="number" class="border p-2 rounded w-full mb-4" placeholder="Precio (€)"/>
+      <div class="flex justify-end gap-2">
+        <button (click)="guardarEdicionPrecio()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">Guardar</button>
+        <button (click)="cancelarEdicionPrecio()" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">Cancelar</button>
+      </div>
     </div>
-    <div *ngIf="errorProducto" class="text-red-600 text-sm mb-4">Rellene todos los campos del producto</div>
-  </div> -->
+  </div>
+
+  <div class="flex gap-4 mb-2">
+  <select [(ngModel)]="nuevoPrecioProducto.producto_id" class="border p-2 rounded w-full">
+    <option [value]="null">Seleccione un producto</option>
+    <option *ngFor="let p of productos" [value]="p.id">{{ p.nombre }}</option>
+  </select>
+
+  <select [(ngModel)]="nuevoPrecioProducto.supermercado_id" class="border p-2 rounded w-full">
+    <option [value]="null">Seleccione un supermercado</option>
+    <option *ngFor="let s of supermercados" [value]="s.id">{{ s.nombre }}</option>
+  </select>
+
+  <input [(ngModel)]="nuevoPrecioProducto.precio" type="number" placeholder="Precio" class="border p-2 rounded w-full" />
+  <button (click)="agregarProductoConPrecio()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">Añadir</button>
+</div>
+
+  <div *ngIf="errorProducto" class="text-red-600 text-sm mb-4">Rellene todos los campos del producto</div>
+</div>
 </div>

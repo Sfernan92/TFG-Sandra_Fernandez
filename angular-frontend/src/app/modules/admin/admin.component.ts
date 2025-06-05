@@ -24,10 +24,19 @@ export class AdminComponent implements OnInit {
   categoriaEditando: any = null;
   productos: any[] = [];
   productoEditando: any = null;
+  
+  nuevoPrecioProducto = {
+    producto_id: null,
+    supermercado_id: null,
+    precio: null
+  };
+  productoPrecioEditando: any = null;
+  productosConPrecio: any[] = [];
 
   private productosApiUrl = 'http://localhost:8000/productos';
   // URL base de la API Symfony
   private apiUrl = 'http://localhost:8000/categorias';
+  private productosPrecioApiUrl = 'http://localhost:8000/productos';
 
   constructor(private http: HttpClient) {}
 
@@ -35,6 +44,9 @@ export class AdminComponent implements OnInit {
     this.cargarCategorias();
     this.cargarSupermercados(); 
     this.cargarProductos();
+    setTimeout(() => {
+    this.cargarProductosConPrecio();
+  }, 500); 
   }
 
   cargarCategorias() {
@@ -227,4 +239,64 @@ getNombreCategoria(idCategoria: number): string {
   const categoria = this.categorias.find(cat => cat.id === idCategoria);
   return categoria ? categoria.nombre : 'Sin categoría';
 }
+
+cargarProductosConPrecio() {
+  this.http.get<any[]>('http://localhost:8000/precios').subscribe({
+    next: (data) => {
+      this.productosConPrecio = data; 
+    },
+    error: () => alert('Error al cargar precios'),
+  });
+}
+
+agregarProductoConPrecio() {
+  const { producto_id, supermercado_id, precio } = this.nuevoPrecioProducto;
+  if (!producto_id || !supermercado_id || precio == null) {
+    this.errorProducto = true;
+    return;
+  }
+
+  this.http.post('http://localhost:8000/precios/new', this.nuevoPrecioProducto).subscribe({
+    next: () => {
+      this.nuevoPrecioProducto = { producto_id: null, supermercado_id: null, precio: null };
+      this.errorProducto = false;
+      this.cargarProductosConPrecio();
+    },
+    error: () => this.errorProducto = true,
+  });
+}
+
+eliminarProductoConPrecio(id: number) {
+  this.http.delete(`http://localhost:8000/precios/${id}`).subscribe({
+    next: () => this.cargarProductosConPrecio(),
+    error: () => alert('Error al eliminar el producto con precio'),
+  });
+}
+
+abrirPopupEditarPrecio(producto: any) {
+  this.productoPrecioEditando = { ...producto };
+}
+
+guardarEdicionPrecio() {
+  if (!this.productoPrecioEditando.nombre.trim() || this.productoPrecioEditando.precio == null) {
+    alert('Complete todos los campos correctamente');
+    return;
+  }
+
+  this.http.put(`http://localhost:8000/precios/${this.productoPrecioEditando.id}/edit`, {
+    nombre: this.productoPrecioEditando.nombre,
+    precio: this.productoPrecioEditando.precio,
+  }).subscribe({
+    next: () => {
+      this.cargarProductosConPrecio();
+      this.productoPrecioEditando = null;
+    },
+    error: () => alert('Error al guardar el precio'),
+  });
+}
+
+cancelarEdicionPrecio() {
+  this.productoPrecioEditando = null;
+}
+
 }
