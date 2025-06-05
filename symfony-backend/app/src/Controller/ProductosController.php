@@ -71,7 +71,13 @@ class ProductosController extends AbstractController
             $producto->setNombre($data['nombre']);
         }
         if (isset($data['marca'])) {
-            $producto->setMarca($data['marca']);
+            $producto->setMarca($data['marca']);   
+        }
+        if (isset($data['categoria_id'])) {
+            $categoria = $em->getRepository('App\Entity\Categorias')->find($data['categoria_id']);
+            if ($categoria) {
+                $producto->setCategoria($categoria);
+            }
         }
 
         $em->flush();

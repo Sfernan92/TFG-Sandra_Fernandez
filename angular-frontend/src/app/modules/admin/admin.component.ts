@@ -160,14 +160,11 @@ cancelarEdicionSupermercado() {
 }
 
 cargarProductos() {
-  this.http.get<any[]>(this.productosApiUrl + '/').subscribe({
+  this.http.get<any[]>(this.productosApiUrl).subscribe({
     next: (data) => {
       this.productos = data;
-      this.errorProducto = false;
     },
-    error: () => {
-      this.errorProducto = true;
-    },
+    error: () => alert('Error al cargar productos'),
   });
 }
 
@@ -191,7 +188,7 @@ agregarProducto() {
 }
 
 guardarEdicionProducto() {
-  if (!this.productoEditando.nombre.trim() || !this.productoEditando.marca.trim()) {
+  if (!this.productoEditando.nombre.trim() || !this.productoEditando.marca.trim() || !this.productoEditando.categoria_id) {
     alert('Complete todos los campos correctamente');
     return;
   }
@@ -204,10 +201,7 @@ guardarEdicionProducto() {
     })
     .subscribe({
       next: () => {
-        const index = this.productos.findIndex(p => p.id === this.productoEditando.id);
-        if (index > -1) {
-          this.productos[index] = { ...this.productoEditando };
-        }
+        this.cargarProductos(); // 🔄 Recarga los productos desde el backend
         this.productoEditando = null;
       },
       error: () => alert('Error al guardar el producto'),
