@@ -61,6 +61,7 @@ export class BuscadorComponent {
     { nombre: 'Vino', emoji: '🍷' },
     { nombre: 'Cóctel', emoji: '🍸' },
     { nombre: 'Batido de frutas', emoji: '🍹' },
+    { nombre: 'Salmón', emoji: '🐟' },
   ];
 
   obtenerAlimentosFiltrados() {
