@@ -1,24 +1,24 @@
-// seleccion.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class SeleccionService {
   private idsSeleccionadosSubject = new BehaviorSubject<number[]>([]);
   idsSeleccionados$ = this.idsSeleccionadosSubject.asObservable();
 
-  agregarId(id: number) {
-    const ids = this.idsSeleccionadosSubject.getValue();
-    if (!ids.includes(id)) {
-      const nuevosIds = [...ids, id]; // 🔁 ¡nueva referencia!
-      this.idsSeleccionadosSubject.next(nuevosIds); // 🔔 emite nuevo valor
+  // Obtener el array actual para evitar sobreescribir sin querer
+  private get idsSeleccionados(): number[] {
+    return this.idsSeleccionadosSubject.getValue();
+  }
+
+  agregarId(id: number): void {
+    if (!this.idsSeleccionados.includes(id)) {
+      this.idsSeleccionadosSubject.next([...this.idsSeleccionados, id]);
     }
   }
 
-  obtenerIds(): number[] {
-    debugger;
-    return this.idsSeleccionadosSubject.getValue();
+  quitarId(id: number): void {
+    const nuevosIds = this.idsSeleccionados.filter(i => i !== id);
+    this.idsSeleccionadosSubject.next(nuevosIds);
   }
 }

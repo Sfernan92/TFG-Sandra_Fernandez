@@ -19,7 +19,6 @@ class Categorias
     #[ORM\Column(length: 100)]
     private ?string $nombre = null;
 
-    // para evitar error en PHP
     #[ORM\OneToMany(mappedBy: 'categorias', targetEntity: Productos::class, orphanRemoval: true)]
     private Collection $productos;
 

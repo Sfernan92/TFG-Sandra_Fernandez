@@ -18,7 +18,7 @@ export class LandingComponent implements OnInit, OnDestroy {
   precios: any[] = [];
   categorias: string[] = [];
   supermercados: string[] = [];
-  productos: string[] = [];
+  productos: { id: number; nombre: string }[] = [];
   idsSeleccionados: number[] = [];
   private sub!: Subscription;
 
@@ -48,13 +48,8 @@ export class LandingComponent implements OnInit, OnDestroy {
   ) {}
 
 ngOnInit(): void {
-  console.log('[LandingComponent] ngOnInit ejecutado');
-
   this.sub = this.seleccionService.idsSeleccionados$.subscribe(ids => {
-    console.log('[LandingComponent] IDs recibidos:', ids);
-
     this.idsSeleccionados = ids;
-  
     this.http.get<any[]>('http://localhost:8000/precios/').subscribe((data) => {
       this.precios = data.filter(precio =>
         this.idsSeleccionados.includes(precio.producto_id)
@@ -86,10 +81,14 @@ ngOnInit(): void {
     if (!this.supermercados.includes(supermercado)) this.supermercados.push(supermercado);
 
     // Tabla producto-supermercado
-    if (!this.tabla[producto]) {
-      this.tabla[producto] = {};
-      this.productos.push(producto);
-    }
+if (!this.tabla[producto]) {
+  this.tabla[producto] = {};
+  // Buscá el id asociado en this.precios para ese producto
+  const prodObj = this.precios.find(p => p.producto_nombre === producto);
+  if (prodObj) {
+    this.productos.push({ id: prodObj.producto_id, nombre: producto });
+  }
+}
     this.tabla[producto][supermercado] = precio;
 
     // Productos por categoria
@@ -97,10 +96,6 @@ ngOnInit(): void {
     if (!this.productosPorCategoria[categoria][producto]) this.productosPorCategoria[categoria][producto] = {};
     this.productosPorCategoria[categoria][producto][supermercado] = precio;
   }
-
-  console.log('Categorias:', this.categorias);
-  console.log('Supermercados:', this.supermercados);
-  console.log('PRECIOS', this.precios);
 
   // Sumamos los precios por categoria y supermercado
   for (const cat of this.categorias) {
@@ -113,11 +108,18 @@ ngOnInit(): void {
       this.sumaPorCategoria[cat][sup] = suma;
     }
   }
-  console.log('Suma por categoria:', this.sumaPorCategoria);
 }
 
 get gridColsClass(): string {
   return `md:grid-cols-${this.supermercados.length + 1}`;
   }
+
+  quitarProducto(id: number) {
+  // Remover producto del array local (si querés que desaparezca de la lista)
+  this.productos = this.productos.filter(p => p.id !== id);
+  
+  // Quitar id de seleccionados en el servicio
+  this.seleccionService.quitarId(id);
+}
 
 }

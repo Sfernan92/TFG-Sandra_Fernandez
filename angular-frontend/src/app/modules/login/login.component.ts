@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service'; // asegúrate de que la ruta esté bien
+import { AuthService } from '../services/auth.service'; 
 
 @Component({
   selector: 'app-login',
@@ -31,7 +31,6 @@ export class LoginComponent {
 
   this.authService.login(this.email, this.password).subscribe({
     next: (response) => {
-      console.log('Login exitoso:', response);
       localStorage.setItem('token', response.token);
       localStorage.setItem('user', JSON.stringify(response.user));
       this.router.navigate(['/admin']);
