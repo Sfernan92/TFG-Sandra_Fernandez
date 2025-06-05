@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { FooterComponent } from '../shared/footer/footer.component';
 import { ToastComponent } from '../toast/toast.component';
 import { HttpClient } from '@angular/common/http';
+import { SeleccionService } from '../services/seleccion.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-landing',
@@ -12,11 +14,13 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './landing.component.html',
   // styleUrls: ['./landing.component.css']
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, OnDestroy {
   precios: any[] = [];
   categorias: string[] = [];
   supermercados: string[] = [];
   productos: string[] = [];
+  idsSeleccionados: number[] = [];
+  private sub!: Subscription;
 
   tabla: {
     [producto: string]: {
@@ -38,13 +42,30 @@ export class LandingComponent implements OnInit {
     };
   } = {};
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private seleccionService: SeleccionService
+  ) {}
 
-  ngOnInit(): void {
+ngOnInit(): void {
+  console.log('[LandingComponent] ngOnInit ejecutado');
+
+  this.sub = this.seleccionService.idsSeleccionados$.subscribe(ids => {
+    console.log('[LandingComponent] IDs recibidos:', ids);
+
+    this.idsSeleccionados = ids;
+  
     this.http.get<any[]>('http://localhost:8000/precios/').subscribe((data) => {
-      this.precios = data;
+      this.precios = data.filter(precio =>
+        this.idsSeleccionados.includes(precio.producto_id)
+      );
       this.organizarDatos();
     });
+  });
+}
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   organizarDatos() {
@@ -79,6 +100,7 @@ export class LandingComponent implements OnInit {
 
   console.log('Categorias:', this.categorias);
   console.log('Supermercados:', this.supermercados);
+  console.log('PRECIOS', this.precios);
 
   // Sumamos los precios por categoria y supermercado
   for (const cat of this.categorias) {

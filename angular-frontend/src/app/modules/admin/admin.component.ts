@@ -13,12 +13,14 @@ import { RouterModule } from '@angular/router';
 
 export class AdminComponent implements OnInit {
   categorias: any[] = []; 
-  nuevoProducto = { nombre: '', marca: '' , categoria_id: null};
+  nuevoProducto = { nombre: '', marca: '' , categoria_id: -1};
   errorProducto = false;
   supermercados: any[] = [];
   nuevoSupermercado = { nombre: '' };
   errorSupermercado = false;
   supermercadoEditando: any = null;
+  nuevaCategoria = { nombre: '' };
+
   
   private supermercadoApiUrl = 'http://localhost:8000/supermercados';
   categoriaEditando: any = null;
@@ -48,6 +50,24 @@ export class AdminComponent implements OnInit {
     this.cargarProductosConPrecio();
   }, 500); 
   }
+
+agregarCategoria() {
+  if (!this.nuevaCategoria.nombre.trim()) {
+    this.errorProducto = true;
+    return;
+  }
+
+  this.http.post(this.apiUrl + '/new', this.nuevaCategoria).subscribe({
+    next: () => {
+      this.nuevaCategoria.nombre = '';
+      this.errorProducto = false;
+      this.cargarCategorias();
+    },
+    error: () => {
+      this.errorProducto = true;
+    }
+  });
+}
 
   cargarCategorias() {
     this.http.get<any[]>(this.apiUrl + '/').subscribe({
@@ -181,15 +201,15 @@ cargarProductos() {
 }
 
 agregarProducto() {
-  const { nombre, marca } = this.nuevoProducto;
-  if (!nombre.trim() || !marca.trim()) {
+  const { nombre, marca, categoria_id } = this.nuevoProducto;
+  if (!nombre.trim() || !marca.trim() || !categoria_id) {
     this.errorProducto = true;
     return;
   }
 
   this.http.post(this.productosApiUrl + '/new', this.nuevoProducto).subscribe({
     next: () => {
-      this.nuevoProducto = { nombre: '', marca: '', categoria_id: null };
+      this.nuevoProducto = { nombre: '', marca: '', categoria_id: -1 };
       this.errorProducto = false;
       this.cargarProductos();
     },
@@ -198,6 +218,7 @@ agregarProducto() {
     },
   });
 }
+
 
 guardarEdicionProducto() {
   if (!this.productoEditando.nombre.trim() || !this.productoEditando.marca.trim() || !this.productoEditando.categoria_id) {

@@ -71,11 +71,23 @@ public function new(Request $request, EntityManagerInterface $em): JsonResponse
     }
 
     #[Route('/{id}', name: 'categorias_delete', methods: ['DELETE'])]
-    public function delete(Categorias $categoria, EntityManagerInterface $em): JsonResponse
-    {
-        $em->remove($categoria);
-        $em->flush();
+    public function delete(int $id,EntityManagerInterface $em): JsonResponse {
+        if (!$id) {
+            return new JsonResponse(['error' => 'ID no proporcionado'], 400);
+        }
 
-        return new JsonResponse(['message' => 'Categoría eliminada']);
+        $connection = $em->getConnection();
+        $sql = 'DELETE FROM categorias WHERE id = :id'; //SQL NATIVO
+
+        try {
+            $stmt = $connection->prepare($sql);
+            $stmt->bindValue('id', $id);
+            $stmt->executeStatement();
+
+            return new JsonResponse(['message' => 'Categoría eliminada correctamente']);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'Error al eliminar categoría: ' . $e->getMessage()], 500);
+        }
     }
+
 }

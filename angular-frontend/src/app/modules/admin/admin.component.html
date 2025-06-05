@@ -50,11 +50,11 @@
   </div>
 </div>
   <div class="flex gap-4 mb-2">
-    <input [(ngModel)]="nuevoProducto.nombre" placeholder="Nombre de la categoría" class="border p-2 rounded w-full"/>
-    <button (click)="agregarProducto()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">
-      Añadir
-    </button>
-  </div>
+  <input [(ngModel)]="nuevaCategoria.nombre" placeholder="Nombre de la categoría" class="border p-2 rounded w-full"/>
+  <button (click)="agregarCategoria()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">
+    Añadir
+  </button>
+</div>
   <div *ngIf="errorProducto" class="text-red-600 text-sm mb-4">
     Rellene el nombre de la categoría correctamente
   </div>
@@ -218,5 +218,23 @@
       </div>
     </div>
   </div>
+
+<!-- Nuevo input con select para producto y supermercado -->
+<div class="flex gap-4 mb-2">
+  <select [(ngModel)]="nuevoPrecioProducto.producto_id" class="border p-2 rounded w-full">
+    <option [value]="null">Seleccione un producto</option>
+    <option *ngFor="let p of productos" [value]="p.id">{{ p.nombre }}</option>
+  </select>
+
+  <select [(ngModel)]="nuevoPrecioProducto.supermercado_id" class="border p-2 rounded w-full">
+    <option [value]="null">Seleccione un supermercado</option>
+    <option *ngFor="let s of supermercados" [value]="s.id">{{ s.nombre }}</option>
+  </select>
+
+  <input [(ngModel)]="nuevoPrecioProducto.precio" type="number" placeholder="Precio" class="border p-2 rounded w-full" />
+  <button (click)="agregarProductoConPrecio()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">Añadir</button>
+</div>
+  
+
 </div>
 </div>

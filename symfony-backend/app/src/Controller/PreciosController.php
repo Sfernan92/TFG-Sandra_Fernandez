@@ -28,6 +28,7 @@ class PreciosController extends AbstractController
                 'precio' => $precio->getPrecio(),
                 'producto_nombre' => $producto ? $producto->getNombre() : null,
                 'supermercado_nombre' => $supermercado ? $supermercado->getNombre() : null,
+                'producto_id' => $producto ? $producto->getId() : null,
                 'categoria' => $categoria,
             ];
         }, $precios);
@@ -52,7 +53,22 @@ class PreciosController extends AbstractController
 
         $precio = new Precios();
 
-        // Valida manualmente si quieres o usa validación aparte
+        // Asignar los valores recibidos (valida antes si quieres)
+        if (isset($data['precio'])) {
+            $precio->setPrecio($data['precio']);
+        } else {
+            return new JsonResponse(['error' => 'El campo precio es obligatorio'], 400);
+        }
+
+        if (isset($data['producto_id'])) {
+            $producto = $em->getRepository('App\Entity\Productos')->find($data['producto_id'] ?? 0);
+            $precio->setProducto($producto);
+        }
+
+        if (isset($data['supermercado_id'])) {
+            $supermercado = $em->getRepository('App\Entity\Supermercados')->find($data['supermercado_id'] ?? 0);
+            $precio->setSupermercado($supermercado);
+        }
 
         $em->persist($precio);
         $em->flush();

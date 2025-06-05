@@ -74,11 +74,24 @@ class SupermercadosController extends AbstractController
     }
 
     #[Route('/{id}', name: 'supermercados_delete', methods: ['DELETE'])]
-    public function delete(Supermercados $supermercado, EntityManagerInterface $em): JsonResponse
+    public function delete(int $id,EntityManagerInterface $em): JsonResponse {    
     {
-        $em->remove($supermercado);
-        $em->flush();
+            if (!$id) {
+                return new JsonResponse(['error' => 'ID no proporcionado'], 400);
+            }
 
-        return new JsonResponse(['message' => 'Supermercado eliminado']);
+            $connection = $em->getConnection();
+            $sql = 'DELETE FROM supermercados WHERE id = :id'; //SQL NATIVO
+
+            try {
+                $stmt = $connection->prepare($sql);
+                $stmt->bindValue('id', $id);
+                $stmt->executeStatement();
+
+                return new JsonResponse(['message' => 'Supermercado eliminado correctamente']);
+            } catch (\Exception $e) {
+                return new JsonResponse(['error' => 'Error al eliminar supermercado: ' . $e->getMessage()], 500);
+            }
+        }
     }
 }

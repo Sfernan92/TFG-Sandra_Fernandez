@@ -1,77 +1,38 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { HttpClient } from '@angular/common/http';
+import { SeleccionService } from '../../services/seleccion.service';
 @Component({
   selector: 'app-buscador',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,],
   templateUrl: './buscador.component.html',
 })
 export class BuscadorComponent {
   terminoBusqueda: string = '';
+  alimentos: { id: number, nombre	: string }[] = [];
 
-  alimentos = [
+  constructor(private http: HttpClient,private seleccionService: SeleccionService) {}
 
-    { nombre: 'Manzana', emoji: '🍎' },
-    { nombre: 'Banana', emoji: '🍌' },
-    { nombre: 'Pizza', emoji: '🍕' },
-    { nombre: 'Hamburguesa', emoji: '🍔' },
-    { nombre: 'Ensalada', emoji: '🥗' },
-    { nombre: 'Helado', emoji: '🍨' },
-    { nombre: 'Pan', emoji: '🍞' },
-    { nombre: 'Taco', emoji: '🌮' },
-    { nombre: 'Sushi', emoji: '🍣' },
-    { nombre: 'Galleta', emoji: '🍪' },
-    { nombre: 'Pastel', emoji: '🎂' },
-    { nombre: 'Uva', emoji: '🍇' },
-    { nombre: 'Fresa', emoji: '🍓' },
-    { nombre: 'Piña', emoji: '🍍' },
-    { nombre: 'Sandía', emoji: '🍉' },
-    { nombre: 'Cereza', emoji: '🍒' },
-    { nombre: 'Mantequilla', emoji: '🧈' },
-    { nombre: 'Huevo', emoji: '🥚' },
-    { nombre: 'Queso', emoji: '🧀' },
-    { nombre: 'Yogur', emoji: '🍦' },
-    { nombre: 'Cereal', emoji: '🥣' },
-    { nombre: 'Aceite', emoji: '🧴' },
-    { nombre: 'Azúcar', emoji: '🍬' },
-    { nombre: 'Sal', emoji: '🧂' },
-    { nombre: 'Pasta', emoji: '🍝' },
-    { nombre: 'Arroz', emoji: '🍚' },
-    { nombre: 'Maíz', emoji: '🌽' },
-    { nombre: 'Patata', emoji: '🥔' },
-    { nombre: 'Zanahoria', emoji: '🥕' },
-    { nombre: 'Brócoli', emoji: '🥦' },
-    { nombre: 'Espinaca', emoji: '🥬' },
-    { nombre: 'Champiñón', emoji: '🍄' },
-    { nombre: 'Cebolla', emoji: '🧅' },
-    { nombre: 'Ajo', emoji: '🧄' },
-    { nombre: 'Pimiento', emoji: '🌶️' },
-    { nombre: 'Pistachos', emoji: '🥜' },
-    { nombre: 'Chocolate', emoji: '🍫' },
-    { nombre: 'Leche', emoji: '🥛' },
-    { nombre: 'zumo', emoji: '🧃' },
-    { nombre: 'Batido', emoji: '🥤' },
-    { nombre: 'Café', emoji: '☕' },
-    { nombre: 'Té', emoji: '🍵' },
-    { nombre: 'Agua', emoji: '💧' },
-    { nombre: 'Cerveza', emoji: '🍺' },
-    { nombre: 'Vino', emoji: '🍷' },
-    { nombre: 'Cóctel', emoji: '🍸' },
-    { nombre: 'Batido de frutas', emoji: '🍹' },
-    { nombre: 'Salmón', emoji: '🐟' },
-    { nombre: 'Comida de Perro', emoji: '🐶' },
-    { nombre: 'Comida de Gato', emoji: '🐱' },
-    { nombre: 'Comida de Conejo', emoji: '🐰' },
-    { nombre: 'Comida de Pájaro', emoji: '🐦' },
-    { nombre: 'Comida de Hámster', emoji: '🐹' },
-  ];
+  ngOnInit(): void {
+    this.http.get<any[]>('http://localhost:8000/productos/').subscribe((data) => {
+      this.alimentos = data.map(item => ({
+        nombre	: item.nombre	 || 'Sin nombre',
+        id: item.id,
+      }));
+    });
+  }
 
   obtenerAlimentosFiltrados() {
     const termino = this.terminoBusqueda.toLowerCase();
     return this.alimentos.filter(alimento =>
-      alimento.nombre.toLowerCase().includes(termino)
+      alimento.nombre	.toLowerCase().includes(termino)
     );
+  }
+
+  seleccionarAlimento(id: number) {
+    this.seleccionService.agregarId(id);
+    this.terminoBusqueda = ''; // Limpiar el campo de búsqueda después de seleccionar
   }
 }

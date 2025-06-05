@@ -8,8 +8,10 @@
 <div class="absolute z-50 top-full mt-2 bg-white p-4 rounded-xl shadow w-full sm:w-64 md:w-80 lg:w-96"
      *ngIf="terminoBusqueda.trim() !== ''">
   <ul *ngIf="obtenerAlimentosFiltrados().length > 0; else sinResultados">
-    <li *ngFor="let alimento of obtenerAlimentosFiltrados()" class="py-1 text-lg">
-      {{ alimento.emoji }} {{ alimento.nombre }}
+    <li *ngFor="let alimento of obtenerAlimentosFiltrados()" 
+        class="py-1 text-lg cursor-pointer hover:bg-gray-100 px-2 rounded"
+        (click)="seleccionarAlimento(alimento.id)">
+      {{ alimento.nombre }}
     </li>
   </ul>
 

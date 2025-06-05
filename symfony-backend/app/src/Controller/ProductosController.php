@@ -52,7 +52,11 @@ class ProductosController extends AbstractController
         $producto = new Productos();
         $producto->setNombre($data['nombre'] ?? null);
         $producto->setMarca($data['marca'] ?? null);
-
+        $categoria = $em->getRepository('App\Entity\Categorias')->find($data['categoria_id'] ?? 0);
+        if (!$categoria) {
+            return new JsonResponse(['error' => 'Categoría no encontrada'], 400);
+        }
+        $producto->setCategoria($categoria);
         $em->persist($producto);
         $em->flush();
 
