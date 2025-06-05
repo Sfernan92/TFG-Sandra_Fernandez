@@ -66,8 +66,8 @@ docker compose up
 
 ### 🔄 Actualizar la rama del proyecto.
 
-1. Una vez tengamos nueustro proyecto levantado el proyecto con docker, nos vamos a Visual Studio Code, donde nos aparecerá de entrada la rama main (la cual esta vacia con el proyecto limpio).
-2. Abrimos consola y entramos dentro de la carpeta angular-frontend y utilizamos el comando `npm install` para instalar todas las dependencias y no tener errores en los módulos.
-3. Una vez ahí, a través del comando `git fetch origin` nos traemos las ramas del proyecto y realizamos el comando `git checkout DEV`, para cambiarnos a la rama DEV que es donde está todo el proyecto. 
+1. Una vez tengamos nueustro proyecto levantado el proyecto con docker, nos **vamos a Visual Studio Code**, donde nos aparecerá de entrada la rama main (la cual esta vacia con el proyecto limpio).
+2. Abrimos consola y **entramos dentro de la carpeta angular-frontend** y utilizamos el comando `npm install` para instalar todas las dependencias y no tener errores en los módulos.
+3. Una vez ahí, a través del comando `git fetch origin` nos **traemos las ramas del proyecto** y realizamos el comando `git checkout DEV`, para cambiarnos a la rama DEV que es donde está todo el proyecto. 
 
-💲 ¡Una vez hecho todo esto ya tendrás el proyecto y podrás comenzar a comparar precios y ahorrar! 💲  
+💲 ¡Una vez hecho todo esto **ya tendrás el proyecto** y podrás comenzar a **comparar precios y ahorrar**! 💲
