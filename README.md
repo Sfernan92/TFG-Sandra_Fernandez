@@ -34,9 +34,9 @@ El objetivo principal del proyecto es realizar una página web de comparación d
 3. La compatibilidad y accesibilidad también juegan un papel importante. La plataforma debe funcionar correctamente en diversos navegadores y sistemas operativos para garantizar que todos los usuarios puedan acceder sin inconvenientes.
 4. Por último, el tiempo de respuesta es un aspecto clave en el desempeño del comparador de precios. Las consultas deben ejecutarse en el menor tiempo posible, idealmente en menos de dos segundos, para evitar esperas prolongadas y mejorar la eficiencia en la búsqueda de información. Una respuesta rápida no solo mejora la experiencia del usuario, sino que también fomenta la retención y el uso continuo de la plataforma.
 
-## 🐬 Base de Datos.
+## 🦦 Base de Datos.
 
-Nuestra base de datos utilizada en primer momento será realizada mediante **MySQL**, ya que es una base de datos bastante robusta y estable con relaciones claras. Intentaremos realizar el proyecto en esta base de datos ya que me gustaría profundizar más en ella por la capacidad que tiene a la hora de gestionar grandes cantidades de datos, ya que nuestro comparador tendrá una gran cantidad de productos, precios y supermercados a comparar, por lo cual creo que es la mejor opción para nuestro sistema. 
+Utilizo DBeaver para poder manejar la base de datos, en mi caso con PostgreSQL, desde ahí es donde puedo visualizar las distintas tablas de productos, precios, categorías o supermercados, puedo ejecutar las consultas SQL y importar nuevos datos o exportar datos. 
 
 ## 🐳 Clonar y Levantar Contenedores en Docker.
 
