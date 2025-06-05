@@ -62,6 +62,11 @@ export class BuscadorComponent {
     { nombre: 'Cóctel', emoji: '🍸' },
     { nombre: 'Batido de frutas', emoji: '🍹' },
     { nombre: 'Salmón', emoji: '🐟' },
+    { nombre: 'Comida de Perro', emoji: '🐶' },
+    { nombre: 'Comida de Gato', emoji: '🐱' },
+    { nombre: 'Comida de Conejo', emoji: '🐰' },
+    { nombre: 'Comida de Pájaro', emoji: '🐦' },
+    { nombre: 'Comida de Hámster', emoji: '🐹' },
   ];
 
   obtenerAlimentosFiltrados() {
