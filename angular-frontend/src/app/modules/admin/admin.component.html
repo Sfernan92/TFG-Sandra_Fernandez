@@ -178,7 +178,7 @@
 <!-- Precios -->
 <div class="mb-12">
   <h2 class="text-3xl font-semibold text-center text-[#E29578] mb-4">Precios</h2>
-  <table class="min-w-full border border-gray-300 rounded">
+  <table class="bg-white w-full overflow-hidden text-left rounded-lg shadow-lg mb-4">
   <thead class="bg-[#83C5BE] text-white">
     <tr>
       <th class="p-2">Producto</th>
@@ -210,7 +210,7 @@
   <div *ngIf="productoPrecioEditando" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
     <div class="bg-white rounded-lg p-6 w-80 shadow-lg">
       <h3 class="text-xl font-semibold mb-4 text-[#006D77]">Editar Precio</h3>
-      <input [(ngModel)]="productoPrecioEditando.nombre" type="text" class="border p-2 rounded w-full mb-2" placeholder="Nombre del producto"/>
+      <input [value]="productoPrecioEditando.producto_nombre" class="border p-2 rounded w-full mb-2 bg-gray-100" readonly/>
       <input [(ngModel)]="productoPrecioEditando.precio" type="number" class="border p-2 rounded w-full mb-4" placeholder="Precio (€)"/>
       <div class="flex justify-end gap-2">
         <button (click)="guardarEdicionPrecio()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">Guardar</button>
@@ -218,22 +218,5 @@
       </div>
     </div>
   </div>
-
-  <div class="flex gap-4 mb-2">
-  <select [(ngModel)]="nuevoPrecioProducto.producto_id" class="border p-2 rounded w-full">
-    <option [value]="null">Seleccione un producto</option>
-    <option *ngFor="let p of productos" [value]="p.id">{{ p.nombre }}</option>
-  </select>
-
-  <select [(ngModel)]="nuevoPrecioProducto.supermercado_id" class="border p-2 rounded w-full">
-    <option [value]="null">Seleccione un supermercado</option>
-    <option *ngFor="let s of supermercados" [value]="s.id">{{ s.nombre }}</option>
-  </select>
-
-  <input [(ngModel)]="nuevoPrecioProducto.precio" type="number" placeholder="Precio" class="border p-2 rounded w-full" />
-  <button (click)="agregarProductoConPrecio()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">Añadir</button>
-</div>
-
-  <div *ngIf="errorProducto" class="text-red-600 text-sm mb-4">Rellene todos los campos del producto</div>
 </div>
 </div>

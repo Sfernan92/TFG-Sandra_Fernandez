@@ -68,8 +68,8 @@ class PreciosController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        if (isset($data['nombre'])) {
-            $precio->setNombre($data['nombre']);
+        if (isset($data['precio'])) {
+            $precio->setPrecio($data['precio']);
         }
 
         $em->flush();

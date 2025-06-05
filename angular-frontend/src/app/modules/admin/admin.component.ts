@@ -278,20 +278,22 @@ abrirPopupEditarPrecio(producto: any) {
 }
 
 guardarEdicionPrecio() {
-  if (!this.productoPrecioEditando.nombre.trim() || this.productoPrecioEditando.precio == null) {
-    alert('Complete todos los campos correctamente');
+  if (this.productoPrecioEditando.precio == null) {
+    alert('El precio no puede estar vacío');
     return;
   }
 
   this.http.put(`http://localhost:8000/precios/${this.productoPrecioEditando.id}/edit`, {
-    nombre: this.productoPrecioEditando.nombre,
-    precio: this.productoPrecioEditando.precio,
+    precio: this.productoPrecioEditando.precio
   }).subscribe({
     next: () => {
       this.cargarProductosConPrecio();
       this.productoPrecioEditando = null;
     },
-    error: () => alert('Error al guardar el precio'),
+    error: (err) => {
+      console.error('Error al guardar el precio:', err);
+      alert('Error al guardar el precio');
+    }
   });
 }
 
