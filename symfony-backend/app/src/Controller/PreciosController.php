@@ -40,7 +40,6 @@ class PreciosController extends AbstractController
     {
         $data = [
             'id' => $precio->getId(),
-            // etc...
         ];
 
         return new JsonResponse($data);

@@ -6,9 +6,6 @@ use App\Entity\Productos;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Productos>
- */
 class ProductosRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -16,9 +13,7 @@ class ProductosRepository extends ServiceEntityRepository
         parent::__construct($registry, Productos::class);
     }
 
-    //    /**
-    //     * @return Productos[] Returns an array of Productos objects
-    //     */
+    //    
     //    public function findByExampleField($value): array
     //    {
     //        return $this->createQueryBuilder('p')

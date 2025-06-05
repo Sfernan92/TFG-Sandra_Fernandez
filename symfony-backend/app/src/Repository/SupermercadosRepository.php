@@ -6,9 +6,6 @@ use App\Entity\Supermercados;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Supermercados>
- */
 class SupermercadosRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -16,9 +13,7 @@ class SupermercadosRepository extends ServiceEntityRepository
         parent::__construct($registry, Supermercados::class);
     }
 
-    //    /**
-    //     * @return Supermercados[] Returns an array of Supermercados objects
-    //     */
+    //    
     //    public function findByExampleField($value): array
     //    {
     //        return $this->createQueryBuilder('s')

@@ -1,15 +1,10 @@
-<a
-  routerLink="/"
-  class="fixed top-4 left-4 bg-[#E29578] text-white py-2 px-4 rounded-lg hover:bg-[#D17A61] transition z-50">
+<a routerLink="/" class="fixed top-4 left-4 bg-[#E29578] text-white py-2 px-4 rounded-lg hover:bg-[#D17A61] transition z-50">
   Volver a inicio
 </a>
 
-<a
-  routerLink="/"
-  class="fixed top-16 left-4 bg-[#E29578] text-white py-2 px-4 rounded-lg hover:bg-[#D17A61] transition z-50">
+<a routerLink="/" class="fixed top-16 left-4 bg-[#E29578] text-white py-2 px-4 rounded-lg hover:bg-[#D17A61] transition z-50">
   Cerrar Sesión
 </a>
-
 
 <div class="min-h-screen bg-[#EDF6F9] p-8 lg:px-70">
   <div class="max-w-6x1 mx-auto">
@@ -28,70 +23,44 @@
       <tr *ngFor="let categoria of categorias">
         <td class="p-2 align-middle min-h-[48px]">{{ categoria.nombre }}</td>
         <td class="p-2 align-middle min-h-[48px]">
-        <button
-            (click)="abrirPopupEditar(categoria)"
-            class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-5"
-          >
-            Editar
+          <button (click)="abrirPopupEditar(categoria)"
+            class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-5">
+              Editar
           </button>
-          <button
-            (click)="eliminarCategoria(categoria.id)"
-            class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 mr-5"
-          >
-            Eliminar
+          <button (click)="eliminarCategoria(categoria.id)"
+            class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 mr-5">
+              Eliminar
           </button>
         </td>
       </tr>
     </tbody>
   </table>
-<div
-  *ngIf="categoriaEditando"
-  class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
->
+<div *ngIf="categoriaEditando" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
   <div class="bg-white rounded-lg p-6 w-80 shadow-lg">
     <h3 class="text-xl font-semibold mb-4 text-[#006D77]">Editar Categoría</h3>
-    <input
-      [(ngModel)]="categoriaEditando.nombre"
-      type="text"
-      class="border p-2 rounded w-full mb-4"
-      placeholder="Nombre de la categoría"
-    />
+    <input [(ngModel)]="categoriaEditando.nombre" type="text" class="border p-2 rounded w-full mb-4" placeholder="Nombre de la categoría"/>
     <div class="flex justify-end gap-2">
-      <button
-        (click)="guardarEdicion()"
-        class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]"
-      >
+      <button (click)="guardarEdicion()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">
         Guardar
       </button>
-      <button
-        (click)="cancelarEdicion()"
-        class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
-      >
+      <button (click)="cancelarEdicion()" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
         Cancelar
       </button>
     </div>
   </div>
 </div>
   <div class="flex gap-4 mb-2">
-    <input
-      [(ngModel)]="nuevoProducto.nombre"
-      placeholder="Nombre de la categoría"
-      class="border p-2 rounded w-full"
-    />
-    <button
-      (click)="agregarProducto()"
-      class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]"
-    >
+    <input [(ngModel)]="nuevoProducto.nombre" placeholder="Nombre de la categoría" class="border p-2 rounded w-full"/>
+    <button (click)="agregarProducto()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">
       Añadir
     </button>
   </div>
-
   <div *ngIf="errorProducto" class="text-red-600 text-sm mb-4">
     Rellene el nombre de la categoría correctamente
   </div>
 </div>
-<!-- Supermercados -->
-   
+
+<!-- Supermercados --> 
   <div class="mb-12">
   <h2 class="text-3xl font-semibold text-center text-[#E29578] mb-4">Supermercados</h2>
   <table class="bg-white w-full overflow-hidden text-left rounded-lg shadow-lg mb-4">
@@ -105,66 +74,36 @@
       <tr *ngFor="let supermercado of supermercados">
         <td class="p-4 align-middle min-h-[48px]">{{ supermercado.nombre }}</td>
         <td class="p-2 align-middle min-h-[48px]">
-          <button
-            (click)="abrirPopupEditarSupermercado(supermercado)"
-            class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-5"
-          >
+          <button (click)="abrirPopupEditarSupermercado(supermercado)" class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-5">
             Editar
           </button>
-          <button
-            (click)="eliminarSupermercado(supermercado.id)"
-            class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
-          >
+          <button (click)="eliminarSupermercado(supermercado.id)" class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600">
             Eliminar
           </button>
         </td>
       </tr>
     </tbody>
   </table>
-
-  <div
-    *ngIf="supermercadoEditando"
-    class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-  >
+  <div *ngIf="supermercadoEditando" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
     <div class="bg-white rounded-lg p-6 w-80 shadow-lg">
       <h3 class="text-xl font-semibold mb-4 text-[#006D77]">Editar Supermercado</h3>
-      <input
-        [(ngModel)]="supermercadoEditando.nombre"
-        type="text"
-        class="border p-2 rounded w-full mb-4"
-        placeholder="Nombre del supermercado"
-      />
+      <input [(ngModel)]="supermercadoEditando.nombre" type="text" class="border p-2 rounded w-full mb-4" placeholder="Nombre del supermercado"/>
       <div class="flex justify-end gap-2">
-        <button
-          (click)="guardarEdicionSupermercado()"
-          class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]"
-        >
+        <button (click)="guardarEdicionSupermercado()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">
           Guardar
         </button>
-        <button
-          (click)="cancelarEdicionSupermercado()"
-          class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
-        >
+        <button (click)="cancelarEdicionSupermercado()" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
           Cancelar
         </button>
       </div>
     </div>
   </div>
-
   <div class="flex gap-4 mb-2">
-    <input
-      [(ngModel)]="nuevoSupermercado.nombre"
-      placeholder="Nombre del supermercado"
-      class="border p-2 rounded w-full"
-    />
-    <button
-      (click)="agregarSupermercado()"
-      class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]"
-    >
+    <input [(ngModel)]="nuevoSupermercado.nombre" placeholder="Nombre del supermercado" class="border p-2 rounded w-full"/>
+    <button (click)="agregarSupermercado()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">
       Añadir
     </button>
   </div>
-
   <div *ngIf="errorSupermercado" class="text-red-600 text-sm mb-4">
     Rellene el campo del supermercado correctamente
   </div>
@@ -188,100 +127,53 @@
         <td class="p-2 align-middle min-h-[48px]">{{ producto.marca}}</td>
         <td class="p-2 align-middle min-h-[48px]">{{ getNombreCategoria(producto.categoria_id) }}</td>
         <td class="p-2 align-middle min-h-[48px]">
-          <button
-            (click)="abrirPopupEditarProducto(producto)"
-            class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-5"
-          >
+          <button (click)="abrirPopupEditarProducto(producto)" class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-5">
             Editar
           </button>
-          <button
-            (click)="eliminarProducto(producto.id)"
-            class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
-          >
+          <button (click)="eliminarProducto(producto.id)" class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600">
             Eliminar
           </button>
         </td>
       </tr>
     </tbody>
   </table>
-
-  <div
-    *ngIf="productoEditando"
-    class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-  >
+  <div *ngIf="productoEditando" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
     <div class="bg-white rounded-lg p-6 w-80 shadow-lg">
       <h3 class="text-xl font-semibold mb-4 text-[#006D77]">Editar Producto</h3>
-      <input
-        [(ngModel)]="productoEditando.nombre"
-        type="text"
-        class="border p-2 rounded w-full mb-2"
-        placeholder="Nombre del producto"
-      />
-      <input
-        [(ngModel)]="productoEditando.marca"
-        type="text"
-        class="border p-2 rounded w-full mb-4"
-        placeholder="Marca"
-      />
-      <select
-        [(ngModel)]="productoEditando.categoria_id"
-        class="border p-2 rounded w-full mb-4"
-      >
+      <input [(ngModel)]="productoEditando.nombre" type="text" class="border p-2 rounded w-full mb-2" placeholder="Nombre del producto"/>
+      <input [(ngModel)]="productoEditando.marca" type="text" class="border p-2 rounded w-full mb-4" placeholder="Marca"/>
+      <select [(ngModel)]="productoEditando.categoria_id" class="border p-2 rounded w-full mb-4">
         <option *ngFor="let categoria of categorias" [value]="categoria.id">
           {{ categoria.nombre }}
         </option>
       </select>
       <div class="flex justify-end gap-2">
-        <button
-          (click)="guardarEdicionProducto()"
-          class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]"
-        >
+        <button (click)="guardarEdicionProducto()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">
           Guardar
         </button>
-        <button
-          (click)="cancelarEdicionProducto()"
-          class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
-        >
+        <button (click)="cancelarEdicionProducto()" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
           Cancelar
         </button>
       </div>
     </div>
   </div>
-
   <div class="flex gap-4 mb-2">
-    <input
-      [(ngModel)]="nuevoProducto.nombre"
-      placeholder="Nombre"
-      class="border p-2 rounded w-full"
-    />
-    <input
-      [(ngModel)]="nuevoProducto.marca"
-      type="text"
-      placeholder="Marca"
-      class="border p-2 rounded w-full"
-    />
-    <select
-    [(ngModel)]="nuevoProducto.categoria_id"
-    class="border p-2 rounded w-full"
-  >
+    <input [(ngModel)]="nuevoProducto.nombre" placeholder="Nombre" class="border p-2 rounded w-full"/>
+    <input [(ngModel)]="nuevoProducto.marca" type="text" placeholder="Marca" class="border p-2 rounded w-full"/>
+    <select [(ngModel)]="nuevoProducto.categoria_id" class="border p-2 rounded w-full">
     <option [value]="null" disabled selected>Selecciona una categoría</option>
     <option *ngFor="let categoria of categorias" [value]="categoria.id">
       {{ categoria.nombre }}
     </option>
   </select>
-    <button
-      (click)="agregarProducto()"
-      class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]"
-    >
+    <button (click)="agregarProducto()" class="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#005A64]">
       Añadir
     </button>
   </div>
-
   <div *ngIf="errorProducto" class="text-red-600 text-sm mb-4">
     Rellene todos los campos del producto
   </div>
 </div>
-
 
   <!-- Precios -->
   <!-- <div class="mb-12">

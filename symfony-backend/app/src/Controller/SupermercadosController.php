@@ -21,9 +21,8 @@ class SupermercadosController extends AbstractController
         $data = array_map(function (Supermercados $supermercado) {
             return [
                 'id' => $supermercado->getId(),
-                // Cambia estos campos según tu entidad
+                // Cambia estos campos según la entidad
                 'nombre' => $supermercado->getNombre()
-                // etc...
             ];
         }, $supermercados);
 
@@ -36,7 +35,6 @@ class SupermercadosController extends AbstractController
         $data = [
             'id' => $supermercado->getId(),
             'nombre' => $supermercado->getNombre(),
-            // etc...
         ];
 
         return new JsonResponse($data);
@@ -49,7 +47,6 @@ class SupermercadosController extends AbstractController
 
         $supermercado = new Supermercados();
         $supermercado->setNombre($data['nombre'] ?? null);
-        // setea aquí los demás campos que tengas
 
         $em->persist($supermercado);
         $em->flush();

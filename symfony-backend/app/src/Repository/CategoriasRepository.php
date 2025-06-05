@@ -6,9 +6,6 @@ use App\Entity\Categorias;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Categorias>
- */
 class CategoriasRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -16,9 +13,7 @@ class CategoriasRepository extends ServiceEntityRepository
         parent::__construct($registry, Categorias::class);
     }
 
-    //    /**
-    //     * @return Categorias[] Returns an array of Categorias objects
-    //     */
+    //    
     //    public function findByExampleField($value): array
     //    {
     //        return $this->createQueryBuilder('c')

@@ -19,7 +19,7 @@ class Categorias
     #[ORM\Column(length: 100)]
     private ?string $nombre = null;
 
-    // Nullable para evitar error en PHP
+    // para evitar error en PHP
     #[ORM\OneToMany(mappedBy: 'categorias', targetEntity: Productos::class, orphanRemoval: true)]
     private Collection $productos;
 
@@ -63,7 +63,6 @@ class Categorias
     public function removeProducto(Producto $producto): self
     {
         if ($this->productos->removeElement($producto)) {
-            // set the owning side to null (unless already changed)
             if ($producto->getCategoria() === $this) {
                 $producto->setCategoria(null);
             }

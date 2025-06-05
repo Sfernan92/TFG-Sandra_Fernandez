@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
 })
 
 export class AdminComponent implements OnInit {
-  categorias: any[] = []; // categorías aquí
+  categorias: any[] = []; 
   nuevoProducto = { nombre: '', marca: '' , categoria_id: null};
   errorProducto = false;
   supermercados: any[] = [];
@@ -21,7 +21,6 @@ export class AdminComponent implements OnInit {
   supermercadoEditando: any = null;
   
   private supermercadoApiUrl = 'http://localhost:8000/supermercados';
-  // NUEVO: para edición
   categoriaEditando: any = null;
   productos: any[] = [];
   productoEditando: any = null;
@@ -64,7 +63,6 @@ export class AdminComponent implements OnInit {
   // --- MÉTODOS PARA EDITAR ---
 
   abrirPopupEditar(categoria: any) {
-    // Clonar el objeto para no mutar la lista directamente
     this.categoriaEditando = { ...categoria };
   }
 
@@ -192,7 +190,6 @@ agregarProducto() {
   });
 }
 
-// En guardarEdicionProducto:
 guardarEdicionProducto() {
   if (!this.productoEditando.nombre.trim() || !this.productoEditando.marca.trim()) {
     alert('Complete todos los campos correctamente');
@@ -227,8 +224,6 @@ eliminarProducto(id: number) {
 abrirPopupEditarProducto(producto: any) {
   this.productoEditando = { ...producto };
 }
-
-
 
 cancelarEdicionProducto() {
   this.productoEditando = null;
