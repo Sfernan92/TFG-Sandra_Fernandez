@@ -36,7 +36,7 @@ El objetivo principal del proyecto es realizar una página web de comparación d
 
 ## 🦦 Base de Datos.
 
-Utilizo DBeaver para poder manejar la base de datos, en mi caso con PostgreSQL, desde ahí es donde puedo visualizar las distintas tablas de productos, precios, categorías o supermercados, puedo ejecutar las consultas SQL y importar nuevos datos o exportar datos. 
+Utilizo DBeaver para poder manejar la base de datos, en mi caso con PostgreSQL, desde ahí es donde puedo visualizar las distintas tablas de productos, precios, categorías o supermercados, puedo ejecutar las consultas SQL y importar nuevos datos o exportar datos. PostgreSQL es un sistema de gestión de bases de datos relacional de código abierto, muy potente y ampliamente utilizado tanto en aplicaciones pequeñas como empresariales. Nos permite almacenar, consultar y manipular datos estructurados usando SQL. También soporta características avanzadas que lo hacen muy flexible y extensible.
 
 ## 🐳 Clonar y Levantar Contenedores en Docker.
 
