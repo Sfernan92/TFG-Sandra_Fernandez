@@ -38,7 +38,11 @@ El objetivo principal del proyecto es realizar una página web de comparación d
 
 Utilizo DBeaver para poder manejar la base de datos, en mi caso con PostgreSQL, desde ahí es donde puedo visualizar las distintas tablas de productos, precios, categorías o supermercados, puedo ejecutar las consultas SQL y importar nuevos datos o exportar datos. PostgreSQL es un sistema de gestión de bases de datos relacional de código abierto, muy potente y ampliamente utilizado tanto en aplicaciones pequeñas como empresariales. Nos permite almacenar, consultar y manipular datos estructurados usando SQL. También soporta características avanzadas que lo hacen muy flexible y extensible.
 
-## 🐳 Clonar y Levantar Contenedores en Docker.
+## 🚀 Despliegue de la aplicación.
+
+Para desplegar DonTacaño.com antes tienes que instalar Docker Compose y Docker Desktop. Y posteriormente hacer los pasos siguientes:
+
+### 🐳 Clonar y Levantar Contenedores en Docker.
 
 ### 📦 Clonar el Repositorio.
 
@@ -59,3 +63,11 @@ git@github.com:Sfernan92/TFG-Sandra_Fernandez.git
 ```
 docker compose up
 ```
+
+### 🔄 Actualizar la rama del proyecto.
+
+1. Una vez tengamos nueustro proyecto levantado el proyecto con docker, nos vamos a Visual Studio Code, donde nos aparecerá de entrada la rama main (la cual esta vacia con el proyecto limpio).
+2. Abrimos consola y entramos dentro de la carpeta angular-frontend y utilizamos el comando `npm install` para instalar todas las dependencias y no tener errores en los módulos.
+3. Una vez ahí, a través del comando `git fetch origin` nos traemos las ramas del proyecto y realizamos el comando `git checkout DEV`, para cambiarnos a la rama DEV que es donde está todo el proyecto. 
+
+¡Una vez hecho todo esto ya tendrás el proyecto y podrás comenzar a comparar precios y ahorrar!  
