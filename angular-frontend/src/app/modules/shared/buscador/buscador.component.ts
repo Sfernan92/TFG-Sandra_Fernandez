@@ -39,7 +39,6 @@ export class BuscadorComponent {
     { nombre: 'Sal', emoji: '🧂' },
     { nombre: 'Pasta', emoji: '🍝' },
     { nombre: 'Arroz', emoji: '🍚' },
-    { nombre: 'Pizza', emoji: '🍕' },
     { nombre: 'Maíz', emoji: '🌽' },
     { nombre: 'Patata', emoji: '🥔' },
     { nombre: 'Zanahoria', emoji: '🥕' },
